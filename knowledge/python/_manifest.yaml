@@ -1,0 +1,47 @@
+domain: python
+last_validated: "2026-04-26"
+status: active
+concepts:
+  - name: async-await-fundamentals
+    path: concepts/async-await-fundamentals.md
+    confidence: 0.90
+  - name: cost-tracking-tokens
+    path: concepts/cost-tracking-tokens.md
+    confidence: 0.90
+  - name: pydantic-v2-structured-output
+    path: concepts/pydantic-v2-structured-output.md
+    confidence: 0.90
+  - name: retry-patterns-llm
+    path: concepts/retry-patterns-llm.md
+    confidence: 0.90
+  - name: secrets-and-key-rotation
+    path: concepts/secrets-and-key-rotation.md
+    confidence: 0.90
+  - name: testing-llm-code
+    path: concepts/testing-llm-code.md
+    confidence: 0.90
+  - name: type-safety-python
+    path: concepts/type-safety-python.md
+    confidence: 0.90
+patterns:
+  - name: anthropic-client-async-wrapper
+    path: patterns/anthropic-client-async-wrapper.md
+    confidence: 0.90
+  - name: code-review-checklist
+    path: patterns/code-review-checklist.md
+    confidence: 0.90
+  - name: eval-with-pytest
+    path: patterns/eval-with-pytest.md
+    confidence: 0.90
+  - name: instructor-structured-extraction
+    path: patterns/instructor-structured-extraction.md
+    confidence: 0.90
+  - name: project-setup-uv
+    path: patterns/project-setup-uv.md
+    confidence: 0.90
+  - name: streaming-responses
+    path: patterns/streaming-responses.md
+    confidence: 0.90
+  - name: tool-use-loop
+    path: patterns/tool-use-loop.md
+    confidence: 0.90

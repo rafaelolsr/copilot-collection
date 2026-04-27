@@ -1,0 +1,61 @@
+name: Validate
+
+on:
+  pull_request:
+    paths:
+      - 'agents/**'
+      - 'knowledge/**'
+      - 'plugins/**'
+      - 'skills/**'
+      - 'scripts/validate.sh'
+  push:
+    branches: [main]
+    paths:
+      - 'agents/**'
+      - 'knowledge/**'
+      - 'plugins/**'
+      - 'skills/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate agents, KBs, and plugins
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Make script executable
+        run: chmod +x scripts/validate.sh
+
+      - name: Run validation
+        run: scripts/validate.sh
+
+  yaml-lint:
+    runs-on: ubuntu-latest
+    name: YAML lint plugin manifests
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Lint plugin manifests
+        run: |
+          if find plugins -name 'plugin.yaml' -o -name 'plugin.yml' | head -1 | grep -q .; then
+            yamllint -d "{extends: relaxed, rules: {line-length: {max: 200}}}" plugins/
+          else
+            echo "No plugin manifests to lint"
+          fi
+
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    name: Check markdown links
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Markdown link check
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          config-file: '.github/workflows/markdown-link-check.json'
+        continue-on-error: true

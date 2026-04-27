@@ -1,0 +1,13 @@
+name: observability-specialist
+version: 0.1.0
+description: |
+  Observability specialist. KQL, Application Insights schema, OpenTelemetry, sampling, dashboards.
+author: datageek
+license: MIT
+homepage: https://github.com/datageek/copilot-collection
+repository: https://github.com/datageek/copilot-collection
+tags:
+  - observability
+agent: ../../agents/observability-specialist.agent.md
+knowledge:
+  - ../../knowledge/observability/

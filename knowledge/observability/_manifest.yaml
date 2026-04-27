@@ -1,0 +1,44 @@
+domain: observability
+last_validated: "2026-04-26"
+status: active
+concepts:
+  - name: application-insights-schema
+    path: concepts/application-insights-schema.md
+    confidence: 0.90
+  - name: correlation-and-tracing
+    path: concepts/correlation-and-tracing.md
+    confidence: 0.90
+  - name: cost-and-cardinality
+    path: concepts/cost-and-cardinality.md
+    confidence: 0.90
+  - name: kql-fundamentals
+    path: concepts/kql-fundamentals.md
+    confidence: 0.90
+  - name: opentelemetry-semantic-conv
+    path: concepts/opentelemetry-semantic-conv.md
+    confidence: 0.90
+  - name: sampling-strategies
+    path: concepts/sampling-strategies.md
+    confidence: 0.90
+patterns:
+  - name: kql-dependency-failure
+    path: patterns/kql-dependency-failure.md
+    confidence: 0.90
+  - name: kql-error-rate-by-operation
+    path: patterns/kql-error-rate-by-operation.md
+    confidence: 0.90
+  - name: kql-latency-percentiles
+    path: patterns/kql-latency-percentiles.md
+    confidence: 0.90
+  - name: log-based-alert-query
+    path: patterns/log-based-alert-query.md
+    confidence: 0.90
+  - name: otel-dotnet-instrumentation
+    path: patterns/otel-dotnet-instrumentation.md
+    confidence: 0.90
+  - name: otel-python-instrumentation
+    path: patterns/otel-python-instrumentation.md
+    confidence: 0.90
+  - name: workbook-dashboard-skeleton
+    path: patterns/workbook-dashboard-skeleton.md
+    confidence: 0.90

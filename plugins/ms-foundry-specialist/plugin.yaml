@@ -1,0 +1,23 @@
+name: ms-foundry-specialist
+version: 0.1.0
+description: |
+  Microsoft Foundry specialist for Copilot CLI / VS Code Copilot. Writes,
+  reviews, and debugs Foundry Agent Service, Foundry IQ knowledge bases,
+  azure-ai-projects / azure-ai-agents SDKs, Microsoft Agent Framework, model
+  deployments, tools, threads, runs, evaluations, and OpenTelemetry tracing.
+author: datageek
+license: MIT
+homepage: https://github.com/datageek/copilot-collection
+repository: https://github.com/datageek/copilot-collection
+tags:
+  - microsoft-foundry
+  - azure
+  - ai-agents
+  - foundry-iq
+  - agent-framework
+  - opentelemetry
+agent: ../../agents/ms-foundry-specialist.agent.md
+knowledge:
+  - ../../knowledge/ms-foundry/
+requires:
+  copilot_cli: ">=1.0.0"

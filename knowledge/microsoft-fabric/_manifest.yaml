@@ -1,0 +1,44 @@
+domain: microsoft-fabric
+last_validated: "2026-04-26"
+status: active
+concepts:
+  - name: delta-table-fundamentals
+    path: concepts/delta-table-fundamentals.md
+    confidence: 0.90
+  - name: fabric-permissions-model
+    path: concepts/fabric-permissions-model.md
+    confidence: 0.90
+  - name: fabric-sql-endpoint
+    path: concepts/fabric-sql-endpoint.md
+    confidence: 0.90
+  - name: fabric-workspace-and-capacity
+    path: concepts/fabric-workspace-and-capacity.md
+    confidence: 0.90
+  - name: lakehouse-vs-warehouse
+    path: concepts/lakehouse-vs-warehouse.md
+    confidence: 0.90
+  - name: onelake-and-shortcuts
+    path: concepts/onelake-and-shortcuts.md
+    confidence: 0.90
+  - name: semantic-model-rest-api
+    path: concepts/semantic-model-rest-api.md
+    confidence: 0.90
+patterns:
+  - name: delta-write-with-deltalake-python
+    path: patterns/delta-write-with-deltalake-python.md
+    confidence: 0.90
+  - name: fabric-rest-client-managed-identity
+    path: patterns/fabric-rest-client-managed-identity.md
+    confidence: 0.90
+  - name: fabric-sql-from-python
+    path: patterns/fabric-sql-from-python.md
+    confidence: 0.90
+  - name: medallion-bronze-silver-gold
+    path: patterns/medallion-bronze-silver-gold.md
+    confidence: 0.90
+  - name: onelake-shortcut-to-adls
+    path: patterns/onelake-shortcut-to-adls.md
+    confidence: 0.90
+  - name: semantic-model-refresh-via-api
+    path: patterns/semantic-model-refresh-via-api.md
+    confidence: 0.90

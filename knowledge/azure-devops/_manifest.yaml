@@ -1,0 +1,41 @@
+domain: azure-devops
+last_validated: "2026-04-26"
+status: active
+concepts:
+  - name: auth-and-service-connections
+    path: concepts/auth-and-service-connections.md
+    confidence: 0.90
+  - name: azure-devops-rest-api
+    path: concepts/azure-devops-rest-api.md
+    confidence: 0.90
+  - name: branch-policies
+    path: concepts/branch-policies.md
+    confidence: 0.90
+  - name: pipeline-yaml-structure
+    path: concepts/pipeline-yaml-structure.md
+    confidence: 0.90
+  - name: triggers-and-schedules
+    path: concepts/triggers-and-schedules.md
+    confidence: 0.90
+  - name: wiki-and-pages-api
+    path: concepts/wiki-and-pages-api.md
+    confidence: 0.90
+patterns:
+  - name: build-validation-policy
+    path: patterns/build-validation-policy.md
+    confidence: 0.90
+  - name: pipeline-template-extends
+    path: patterns/pipeline-template-extends.md
+    confidence: 0.90
+  - name: pipeline-with-wif
+    path: patterns/pipeline-with-wif.md
+    confidence: 0.90
+  - name: pr-creation-via-rest
+    path: patterns/pr-creation-via-rest.md
+    confidence: 0.90
+  - name: scheduled-pipeline-with-cron
+    path: patterns/scheduled-pipeline-with-cron.md
+    confidence: 0.90
+  - name: wiki-incremental-sync
+    path: patterns/wiki-incremental-sync.md
+    confidence: 0.90

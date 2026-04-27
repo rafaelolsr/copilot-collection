@@ -1,0 +1,41 @@
+domain: eval-framework
+last_validated: "2026-04-26"
+status: active
+concepts:
+  - name: azure-ai-evaluation-sdk
+    path: concepts/azure-ai-evaluation-sdk.md
+    confidence: 0.90
+  - name: eval-cost-and-cadence
+    path: concepts/eval-cost-and-cadence.md
+    confidence: 0.90
+  - name: eval-types
+    path: concepts/eval-types.md
+    confidence: 0.90
+  - name: golden-dataset-design
+    path: concepts/golden-dataset-design.md
+    confidence: 0.90
+  - name: llm-as-judge
+    path: concepts/llm-as-judge.md
+    confidence: 0.90
+  - name: regression-tracking
+    path: concepts/regression-tracking.md
+    confidence: 0.90
+patterns:
+  - name: agentic-evaluator
+    path: patterns/agentic-evaluator.md
+    confidence: 0.90
+  - name: custom-ai-assisted-evaluator
+    path: patterns/custom-ai-assisted-evaluator.md
+    confidence: 0.90
+  - name: custom-deterministic-evaluator
+    path: patterns/custom-deterministic-evaluator.md
+    confidence: 0.90
+  - name: fabric-delta-results-writer
+    path: patterns/fabric-delta-results-writer.md
+    confidence: 0.90
+  - name: failure-modes-dataset-generator
+    path: patterns/failure-modes-dataset-generator.md
+    confidence: 0.90
+  - name: pytest-eval-runner
+    path: patterns/pytest-eval-runner.md
+    confidence: 0.90

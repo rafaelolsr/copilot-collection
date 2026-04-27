@@ -1,0 +1,44 @@
+domain: ms-foundry
+last_validated: "2026-04-26"
+status: active
+concepts:
+  - name: azure-ai-projects-sdk
+    path: concepts/azure-ai-projects-sdk.md
+    confidence: 0.90
+  - name: evaluation-and-tracing
+    path: concepts/evaluation-and-tracing.md
+    confidence: 0.90
+  - name: fabric-data-agent
+    path: concepts/fabric-data-agent.md
+    confidence: 0.90
+  - name: foundry-agent-service
+    path: concepts/foundry-agent-service.md
+    confidence: 0.90
+  - name: foundry-iq
+    path: concepts/foundry-iq.md
+    confidence: 0.90
+  - name: microsoft-agent-framework
+    path: concepts/microsoft-agent-framework.md
+    confidence: 0.90
+  - name: tools-and-integration
+    path: concepts/tools-and-integration.md
+    confidence: 0.90
+patterns:
+  - name: agent-lifecycle
+    path: patterns/agent-lifecycle.md
+    confidence: 0.90
+  - name: connected-agents
+    path: patterns/connected-agents.md
+    confidence: 0.90
+  - name: fabric-data-agent-setup
+    path: patterns/fabric-data-agent-setup.md
+    confidence: 0.90
+  - name: foundry-iq-setup
+    path: patterns/foundry-iq-setup.md
+    confidence: 0.90
+  - name: mcp-tool-integration
+    path: patterns/mcp-tool-integration.md
+    confidence: 0.90
+  - name: otel-tracing-setup
+    path: patterns/otel-tracing-setup.md
+    confidence: 0.90

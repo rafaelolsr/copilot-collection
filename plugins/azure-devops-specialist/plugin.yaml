@@ -1,0 +1,13 @@
+name: azure-devops-specialist
+version: 0.1.0
+description: |
+  Azure DevOps specialist. Pipeline YAML, REST API, branch policies, workload identity federation, PR automation.
+author: datageek
+license: MIT
+homepage: https://github.com/datageek/copilot-collection
+repository: https://github.com/datageek/copilot-collection
+tags:
+  - azure-devops
+agent: ../../agents/azure-devops-specialist.agent.md
+knowledge:
+  - ../../knowledge/azure-devops/
