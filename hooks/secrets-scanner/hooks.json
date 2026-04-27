@@ -1,0 +1,8 @@
+{
+  "name": "secrets-scanner",
+  "description": "Scans files modified during the Copilot session for accidentally committed secrets, API keys, connection strings, and credentials. Runs at sessionEnd; non-blocking by default but exit code is nonzero on findings (so users see the warning).",
+  "events": ["sessionEnd"],
+  "command": "./scan-secrets.sh",
+  "blocking": false,
+  "throttle_seconds": 0
+}

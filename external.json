@@ -1,0 +1,190 @@
+{
+  "$schema": "https://aka.ms/copilot-collection-schema/v1",
+  "name": "copilot-collection",
+  "description": "Curated GitHub Copilot agents, skills, instructions, hooks, and workflows for Microsoft Foundry, Fabric, Power BI/TMDL, Azure DevOps, and AI/LLM systems. Knowledge-base-backed with 90-day re-validation cycle.",
+  "version": "0.2.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": [
+    "copilot",
+    "github-copilot",
+    "copilot-cli",
+    "copilot-agents",
+    "copilot-skills",
+    "microsoft-foundry",
+    "microsoft-fabric",
+    "power-bi",
+    "tmdl",
+    "dax",
+    "azure",
+    "azure-devops",
+    "opentelemetry",
+    "kql",
+    "ai-agents",
+    "llm-evaluation",
+    "agent-framework",
+    "foundry-iq",
+    "python",
+    "agentic-workflows"
+  ],
+  "agents": [
+    {
+      "name": "ms-foundry-specialist",
+      "description": "Microsoft Foundry specialist — Foundry Agent Service, Foundry IQ, azure-ai-projects SDKs, Microsoft Agent Framework",
+      "path": "agents/ms-foundry-specialist/ms-foundry-specialist.agent.md",
+      "tags": ["microsoft-foundry", "azure", "ai-agents", "foundry-iq", "agent-framework"]
+    },
+    {
+      "name": "python-specialist",
+      "description": "Python for AI/LLM systems — async clients, structured output, retries, tool-use loops, evals",
+      "path": "agents/python-specialist/python-specialist.agent.md",
+      "tags": ["python", "ai-agents", "anthropic", "openai", "pydantic", "instructor"]
+    },
+    {
+      "name": "observability-specialist",
+      "description": "Observability — KQL, Application Insights, OpenTelemetry, sampling, dashboards",
+      "path": "agents/observability-specialist/observability-specialist.agent.md",
+      "tags": ["observability", "kql", "application-insights", "opentelemetry", "azure-monitor"]
+    },
+    {
+      "name": "powerbi-tmdl-specialist",
+      "description": "Power BI / TMDL / DAX — PBIP projects, evaluation context, time intelligence, RLS, XMLA deployment",
+      "path": "agents/powerbi-tmdl-specialist/powerbi-tmdl-specialist.agent.md",
+      "tags": ["power-bi", "tmdl", "dax", "pbip", "xmla", "rls"]
+    },
+    {
+      "name": "eval-framework-specialist",
+      "description": "LLM evaluation framework — deterministic + AI-assisted + agentic metrics, golden datasets, regression tracking",
+      "path": "agents/eval-framework-specialist/eval-framework-specialist.agent.md",
+      "tags": ["llm-evaluation", "pytest", "azure-ai-evaluation", "regression-testing"]
+    },
+    {
+      "name": "microsoft-fabric-specialist",
+      "description": "Microsoft Fabric — Lakehouse, Warehouse, OneLake, Delta tables, semantic-model REST API, Fabric SQL endpoint",
+      "path": "agents/microsoft-fabric-specialist/microsoft-fabric-specialist.agent.md",
+      "tags": ["microsoft-fabric", "lakehouse", "warehouse", "onelake", "delta", "directlake"]
+    },
+    {
+      "name": "azure-devops-specialist",
+      "description": "Azure DevOps — Pipeline YAML, REST API, branch policies, workload identity federation, PR automation",
+      "path": "agents/azure-devops-specialist/azure-devops-specialist.agent.md",
+      "tags": ["azure-devops", "pipelines", "wif", "branch-policies", "rest-api"]
+    }
+  ],
+  "skills": [
+    {
+      "name": "simplify",
+      "description": "Refactors recently-changed code: removes duplication, dead code, premature abstraction",
+      "path": "skills/simplify/SKILL.md",
+      "tags": ["refactoring", "code-quality", "review"]
+    },
+    {
+      "name": "ultrathink",
+      "description": "Forces structured deliberation for hard architectural decisions with tradeoff matrices",
+      "path": "skills/ultrathink/SKILL.md",
+      "tags": ["architecture", "decision-making", "deliberation"]
+    },
+    {
+      "name": "code-review",
+      "description": "Systematic 8-category PR review (security → correctness → error handling → types → performance → testing → observability → maintainability)",
+      "path": "skills/code-review/SKILL.md",
+      "tags": ["code-review", "quality", "security"]
+    },
+    {
+      "name": "kb-revalidate",
+      "description": "Re-validates KB files older than 90 days against authoritative sources",
+      "path": "skills/kb-revalidate/SKILL.md",
+      "tags": ["knowledge-base", "validation", "documentation"]
+    },
+    {
+      "name": "agentic-eval",
+      "description": "Designs eval suites for an agent — deterministic checks, AI-assisted scorers, agentic metrics, golden datasets",
+      "path": "skills/agentic-eval/SKILL.md",
+      "tags": ["llm-evaluation", "testing", "regression"]
+    }
+  ],
+  "instructions": [
+    {
+      "name": "markdown",
+      "description": "Markdown structure, headings, links, code blocks, accessibility",
+      "path": "instructions/markdown.instructions.md",
+      "applyTo": "**/*.md,**/*.mdx"
+    },
+    {
+      "name": "agent-md",
+      "description": "Custom agent file (.agent.md) standards per official Copilot CLI spec",
+      "path": "instructions/agent-md.instructions.md",
+      "applyTo": "**/*.agent.md,**/agents/**/*.md"
+    },
+    {
+      "name": "skill-md",
+      "description": "Custom skill file (SKILL.md) standards per official agent-skills spec",
+      "path": "instructions/skill-md.instructions.md",
+      "applyTo": "**/skills/**/SKILL.md,**/SKILL.md"
+    },
+    {
+      "name": "azure-pipeline-yaml",
+      "description": "Azure DevOps pipeline YAML — WIF auth, no PATs, displayName, idempotent deployments",
+      "path": "instructions/azure-pipeline-yaml.instructions.md",
+      "applyTo": "azure-pipelines*.yml,**/pipelines/**/*.yml"
+    },
+    {
+      "name": "github-actions-yaml",
+      "description": "GitHub Actions workflows — OIDC auth, action SHA pinning, minimal permissions, fail-fast",
+      "path": "instructions/github-actions-yaml.instructions.md",
+      "applyTo": ".github/workflows/*.yml"
+    },
+    {
+      "name": "tmdl",
+      "description": "TMDL syntax — 4-space indent, LF line endings, marked date table, format strings",
+      "path": "instructions/tmdl.instructions.md",
+      "applyTo": "**/*.tmdl"
+    },
+    {
+      "name": "dax",
+      "description": "DAX standards — DIVIDE over /, time intelligence with marked date table, measures over calc columns",
+      "path": "instructions/dax.instructions.md",
+      "applyTo": "**/*.dax,**/*.tmdl"
+    },
+    {
+      "name": "arm-template",
+      "description": "ARM template best practices — managed identity, tags, diagnostic settings, no hardcoded IDs",
+      "path": "instructions/arm-template.instructions.md",
+      "applyTo": "**/azuredeploy*.json,**/*.arm.json"
+    },
+    {
+      "name": "bicep",
+      "description": "Bicep IaC — secure params, modular templates, Azure Verified Modules, what-if validation",
+      "path": "instructions/bicep.instructions.md",
+      "applyTo": "**/*.bicep,**/*.bicepparam"
+    }
+  ],
+  "hooks": [
+    {
+      "name": "kb-staleness-warning",
+      "description": "Warns at sessionStart if any KB file has last_validated > 90 days ago",
+      "path": "hooks/kb-staleness-warning/",
+      "events": ["sessionStart"]
+    }
+  ],
+  "workflows": [
+    {
+      "name": "eval-regression",
+      "description": "On PRs touching prompts/agents/tools, runs smoke evals and compares to baseline",
+      "path": "workflows/eval-regression.md",
+      "trigger": "pull_request"
+    }
+  ],
+  "cookbook": [
+    {
+      "name": "recipe-creating-a-foundry-agent",
+      "description": "End-to-end walkthrough: scaffold a deployable Microsoft Foundry agent with Foundry IQ, OpenTelemetry, evals",
+      "path": "cookbook/recipe-creating-a-foundry-agent.md"
+    }
+  ]
+}

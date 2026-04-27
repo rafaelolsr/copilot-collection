@@ -6,7 +6,8 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Copilot%20CLI-compatible-purple.svg" alt="Copilot CLI compatible" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-7-success.svg" alt="7 agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-5-blue.svg" alt="5 skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-9-blue.svg" alt="9 skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/instructions-9-orange.svg" alt="9 instructions" /></a>
   <a href="#"><img src="https://img.shields.io/badge/KB%20files-105-purple.svg" alt="105 KB files" /></a>
 </p>
 
@@ -29,6 +30,7 @@ Compatible with **GitHub Copilot CLI** and **VS Code Copilot**. Validated agains
 - [What's in here](#whats-in-here)
 - [Available specialists (agents)](#available-specialists-agents)
 - [Available skills](#available-skills)
+- [Available instructions](#available-instructions)
 - [Other artifacts](#other-artifacts)
 - [Installing GitHub Copilot CLI](#installing-github-copilot-cli)
 - [Installing the LSP / VS Code extension](#installing-the-lsp--vs-code-extension)
@@ -51,17 +53,18 @@ Compatible with **GitHub Copilot CLI** and **VS Code Copilot**. Validated agains
 
 ```
 copilot-collection/
-├── agents/                 7 domain specialists, each in its own folder
+├── agents/                 7 domain specialists (Foundry, Fabric, Power BI, etc.)
 │   └── <name>/
 │       ├── <name>.agent.md   The agent definition (frontmatter + body)
 │       └── references/        The agent's knowledge base
-├── skills/                 5 procedural playbooks (/simplify, /ultrathink, etc.)
-├── instructions/           Coding standards auto-applied by file pattern
-├── hooks/                  Automated actions on session events
+├── skills/                 9 procedural playbooks (slash commands)
+├── instructions/           9 coding standards auto-applied by file pattern
+├── hooks/                  2 hooks on session events (KB staleness, secrets scanner)
 ├── workflows/              Agentic GitHub Actions
 ├── plugins/                Plugin manifests for marketplace install
 ├── cookbook/               End-to-end recipes
 ├── docs/                   Reference docs per artifact type
+├── external.json           Machine-readable inventory for aggregators
 ├── _templates/             Templates for generating new agents
 └── scripts/                Validation, sync, and scaffolding utilities
 ```
@@ -90,13 +93,64 @@ Each agent KB averages **15 files** (concepts + patterns + anti-patterns + manif
 
 Skills are procedural playbooks invoked via slash commands or auto-routed. They load instructions and bundled scripts/references into the current context.
 
+### Engineering practice
+
 | Skill | What it does |
 |-------|--------------|
-| [`/simplify`](skills/simplify/) | Refactors recently-changed code: removes duplication, dead code, premature abstraction. Includes a `find_duplicates.py` helper. |
-| [`/ultrathink`](skills/ultrathink/) | Forces structured deliberation for hard architectural decisions: restate → 3+ options → tradeoff matrices → recommend → "what would change my mind". Includes 10 reusable decision frameworks. |
+| [`/simplify`](skills/simplify/) | Refactors recently-changed code: removes duplication, dead code, premature abstraction. Includes `find_duplicates.py`. |
+| [`/ultrathink`](skills/ultrathink/) | Structured deliberation for hard decisions: restate → 3+ options → tradeoff matrices → recommend → "what would change my mind". 10 reusable decision frameworks. |
 | [`/code-review`](skills/code-review/) | Systematic 8-category PR review: security → correctness → error handling → types → performance → testing → observability → maintainability. |
+| [`/explore`](skills/explore/) | Read-only codebase exploration: stack identification, directory map, entry points, conventions, health signals. For onboarding to unfamiliar repos. |
+
+### Documentation & decision-making
+
+| Skill | What it does |
+|-------|--------------|
+| [`/adr-write`](skills/adr-write/) | Authors a numbered Architectural Decision Record (MADR-lite). Forces explicit tradeoffs and "what would change this". Bundled template + examples. |
+| [`/spec-driven`](skills/spec-driven/) | Captures a feature spec (SDD-lite) before implementation: problem → users → behavior → edge cases → success criteria → non-goals → rollout. Feeds `/make-plan`. |
+| [`/make-plan`](skills/make-plan/) | Decomposes a feature into ordered phases with concrete steps, files, tests, and definition-of-done. Reviewable before any code is written. |
+
+### LLM / KB operations
+
+| Skill | What it does |
+|-------|--------------|
 | [`/kb-revalidate`](skills/kb-revalidate/) | Re-validates KB files older than 90 days against authoritative sources. Includes `find_stale_kb_files.sh`. |
-| [`/agentic-eval`](skills/agentic-eval/) | Designs eval suites for an agent: deterministic checks, AI-assisted scorers, agentic metrics, golden datasets. Includes `seed_failure_modes.py`. |
+| [`/agentic-eval`](skills/agentic-eval/) | Designs eval suites: deterministic checks, AI-assisted scorers, agentic metrics, golden datasets. Includes `seed_failure_modes.py`. |
+
+---
+
+## Available instructions
+
+Instructions auto-apply when Copilot edits a file matching the pattern. No explicit invocation needed.
+
+### Markdown & docs
+| Instruction | Applies to |
+|---|---|
+| [`markdown`](instructions/markdown.instructions.md) | `**/*.md` — structure, headings, links, code blocks, accessibility |
+
+### Copilot artifacts (meta)
+| Instruction | Applies to |
+|---|---|
+| [`agent-md`](instructions/agent-md.instructions.md) | `**/*.agent.md` — frontmatter spec, body cap, no auto-link corruption |
+| [`skill-md`](instructions/skill-md.instructions.md) | `**/SKILL.md` — required frontmatter, file-name convention |
+
+### CI / pipelines
+| Instruction | Applies to |
+|---|---|
+| [`azure-pipeline-yaml`](instructions/azure-pipeline-yaml.instructions.md) | `azure-pipelines*.yml` — WIF auth, no PATs, displayName, idempotent deployments |
+| [`github-actions-yaml`](instructions/github-actions-yaml.instructions.md) | `.github/workflows/*.yml` — OIDC, action SHA pinning, minimal permissions |
+
+### Power BI / Fabric
+| Instruction | Applies to |
+|---|---|
+| [`tmdl`](instructions/tmdl.instructions.md) | `**/*.tmdl` — 4-space indent, LF line endings, marked date table, format strings |
+| [`dax`](instructions/dax.instructions.md) | `**/*.dax`, `**/*.tmdl` — DIVIDE over /, time intelligence, measures over calc columns |
+
+### Infrastructure as code
+| Instruction | Applies to |
+|---|---|
+| [`arm-template`](instructions/arm-template.instructions.md) | ARM JSON — managed identity, tags, diagnostic settings, no hardcoded IDs |
+| [`bicep`](instructions/bicep.instructions.md) | `**/*.bicep` — secure params, modular templates, AVM, what-if validation |
 
 ---
 
@@ -104,11 +158,12 @@ Skills are procedural playbooks invoked via slash commands or auto-routed. They 
 
 | Type | Items | Purpose |
 |------|-------|---------|
-| **Instructions** | [python](instructions/python.instructions.md) | Auto-applied to `**/*.py` — uv + ruff + mypy strict + Pydantic v2 + async-first |
 | **Hooks** | [kb-staleness-warning](hooks/kb-staleness-warning/) | sessionStart hook warning if any KB file >90 days old (throttled 24h) |
+| | [secrets-scanner](hooks/secrets-scanner/) | sessionEnd scan for hardcoded API keys, GitHub PATs, AWS keys, connection strings, JWTs, private keys |
 | **Workflows** | [eval-regression](workflows/eval-regression.md) | PR-time eval comparison vs baseline on `main`, posts comment + status |
-| **Cookbook** | [recipe-creating-a-foundry-agent](cookbook/recipe-creating-a-foundry-agent.md) | End-to-end walkthrough: scaffold a deployable Foundry agent with Foundry IQ, OTel, evals |
+| **Cookbook** | [recipe-creating-a-foundry-agent](cookbook/recipe-creating-a-foundry-agent.md) | End-to-end walkthrough: deployable Foundry agent with Foundry IQ, OTel, evals |
 | **Plugins** | One manifest per agent | Marketplace-installable bundles |
+| **Discovery** | [`external.json`](external.json) | Machine-readable inventory for aggregators / catalogs |
 
 ---
 

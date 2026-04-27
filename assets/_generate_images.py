@@ -101,9 +101,9 @@ def make_banner() -> None:
     pill_font = _font(20, bold=True)
     pill_font_small = _font(16)
     pills = [
-        ("7", "Specialists",  ACCENT_BLUE),
-        ("5", "Skills",       ACCENT_GREEN),
-        ("105", "KB files",   ACCENT_PURPLE),
+        ("7", "Agents",       ACCENT_BLUE),
+        ("9", "Skills",       ACCENT_GREEN),
+        ("9", "Instructions", ACCENT_PURPLE),
     ]
 
     px = 80
@@ -242,23 +242,27 @@ def make_social_preview() -> None:
             "/simplify",
             "/ultrathink",
             "/code-review",
+            "/explore",
+            "/adr-write",
+            "/spec-driven",
+            "/make-plan",
             "/kb-revalidate",
             "/agentic-eval",
         ]),
         ("ALSO", ACCENT_PURPLE, [
-            "Instructions (auto-applied)",
-            "Hooks (sessionStart)",
+            "9 instructions",
+            "2 session hooks",
             "Agentic workflows",
             "Cookbook recipes",
-            "Plugin manifests",
+            "external.json discovery",
             "90-day KB re-validation",
         ]),
     ]
 
     col_w = (W - 160) // 3
-    cy_start = 320
+    cy_start = 300
     cx = 80
-    item_step = 28                            # tighter line height
+    item_step = 27                            # tighter line height for 9-skill column
     for header, accent, items in cols:
         # header
         draw.text((cx, cy_start), header, fill=accent, font=section_font)
