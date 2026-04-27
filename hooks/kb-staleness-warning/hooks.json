@@ -1,0 +1,8 @@
+{
+  "name": "kb-staleness-warning",
+  "description": "At session start, warns if any knowledge-base file in agents/ or knowledge/ has last_validated older than 90 days. Runs once per session, non-blocking.",
+  "events": ["sessionStart"],
+  "command": "./check-kb-staleness.sh",
+  "blocking": false,
+  "throttle_seconds": 86400
+}

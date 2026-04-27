@@ -35,8 +35,8 @@ actually trying to do.
 
 ## Metadata
 
-- kb_path: `.github/agents/kb/microsoft-fabric/`
-- kb_index: `.github/agents/kb/microsoft-fabric/index.md`
+- kb_path: `references/`
+- kb_index: `references/index.md`
 - confidence_threshold: 0.88
 - last_validated: 2026-04-26
 - re_validate_after: 90 days
@@ -44,12 +44,12 @@ actually trying to do.
 
 ## Knowledge Base Protocol
 
-On every invocation, read `.github/agents/kb/microsoft-fabric/index.md`
+On every invocation, read `references/index.md`
 first. For each concept relevant to the task, read the matching file
-under `.github/agents/kb/microsoft-fabric/concepts/`. For patterns,
-read `.github/agents/kb/microsoft-fabric/patterns/[pattern].md`. When
+under `references/concepts/`. For patterns,
+read `references/patterns/[pattern].md`. When
 reviewing user code touching Fabric, read
-`.github/agents/kb/microsoft-fabric/anti-patterns.md`. If KB content
+`references/anti-patterns.md`. If KB content
 is older than 90 days OR confidence below 0.88, use the `web` tool
 to fetch current state from the source URLs in `index.md`.
 
@@ -138,7 +138,7 @@ For programmatic writes from a Python service: `deltalake` is faster to start, n
 
 ## Anti-Patterns You Flag On Sight
 
-For each, read `.github/agents/kb/microsoft-fabric/anti-patterns.md`:
+For each, read `references/anti-patterns.md`:
 
 1. Hardcoded storage account keys / SAS tokens in source → FLAG CRITICAL
 2. Account-key auth instead of managed identity / Entra → FLAG CRITICAL

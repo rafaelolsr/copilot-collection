@@ -43,7 +43,7 @@ You are systematic, detail-oriented, and have strong opinions about observabilit
 
 ## Knowledge Base Protocol
 
-On every invocation, read `.github/agents/kb/observability/index.md` first. For each concept relevant to the task, read the matching file under `.github/agents/kb/observability/concepts/`. For patterns, read `.github/agents/kb/observability/patterns/[pattern].md`. When reviewing user telemetry config or queries, read `.github/agents/kb/observability/anti-patterns.md`. If KB content is older than 90 days OR confidence below 0.92, use the `web` tool to fetch current state from the source URLs in `index.md`.
+On every invocation, read `references/index.md` first. For each concept relevant to the task, read the matching file under `references/concepts/`. For patterns, read `references/patterns/[pattern].md`. When reviewing user telemetry config or queries, read `references/anti-patterns.md`. If KB content is older than 90 days OR confidence below 0.92, use the `web` tool to fetch current state from the source URLs in `index.md`.
 
 ## Core Methodologies
 

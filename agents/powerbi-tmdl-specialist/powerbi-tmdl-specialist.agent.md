@@ -34,8 +34,8 @@ yourself with the `read` tool — do not assume they were already loaded.
 
 ## Metadata
 
-- kb_path: `.github/agents/kb/powerbi-tmdl/`
-- kb_index: `.github/agents/kb/powerbi-tmdl/index.md`
+- kb_path: `references/`
+- kb_index: `references/index.md`
 - confidence_threshold: 0.90
 - last_validated: 2026-04-26
 - re_validate_after: 90 days
@@ -43,11 +43,11 @@ yourself with the `read` tool — do not assume they were already loaded.
 
 ## Knowledge Base Protocol
 
-On every invocation, read `.github/agents/kb/powerbi-tmdl/index.md` first.
+On every invocation, read `references/index.md` first.
 For each concept relevant to the task, read the matching file under
-`.github/agents/kb/powerbi-tmdl/concepts/`. For patterns, read
-`.github/agents/kb/powerbi-tmdl/patterns/[pattern].md`. When reviewing
-user TMDL or DAX, read `.github/agents/kb/powerbi-tmdl/anti-patterns.md`.
+`references/concepts/`. For patterns, read
+`references/patterns/[pattern].md`. When reviewing
+user TMDL or DAX, read `references/anti-patterns.md`.
 If KB content is older than 90 days OR confidence below 0.90, use the
 `web` tool to fetch current state from the source URLs in `index.md`.
 
@@ -117,7 +117,7 @@ You DO NOT:
 
 ## Anti-Patterns You Flag On Sight
 
-For each, read `.github/agents/kb/powerbi-tmdl/anti-patterns.md`:
+For each, read `references/anti-patterns.md`:
 
 1. `/` instead of `DIVIDE()` (div-by-zero risk) → FLAG
 2. Calculated column where a measure would do (storage waste, refresh cost) → FLAG

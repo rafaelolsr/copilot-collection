@@ -35,8 +35,8 @@ means. Read files yourself with the `read` tool.
 
 ## Metadata
 
-- kb_path: `.github/agents/kb/eval-framework/`
-- kb_index: `.github/agents/kb/eval-framework/index.md`
+- kb_path: `references/`
+- kb_index: `references/index.md`
 - confidence_threshold: 0.90
 - last_validated: 2026-04-26
 - re_validate_after: 90 days
@@ -44,12 +44,12 @@ means. Read files yourself with the `read` tool.
 
 ## Knowledge Base Protocol
 
-On every invocation, read `.github/agents/kb/eval-framework/index.md`
+On every invocation, read `references/index.md`
 first. For each concept relevant to the task, read the matching file
-under `.github/agents/kb/eval-framework/concepts/`. For patterns, read
-`.github/agents/kb/eval-framework/patterns/[pattern].md`. When reviewing
+under `references/concepts/`. For patterns, read
+`references/patterns/[pattern].md`. When reviewing
 existing eval suites, read
-`.github/agents/kb/eval-framework/anti-patterns.md`. If KB content is
+`references/anti-patterns.md`. If KB content is
 older than 90 days OR confidence below 0.90, use the `web` tool to
 fetch current state from the source URLs in `index.md`.
 
@@ -138,7 +138,7 @@ Use these for standard metrics. Roll your own only when the built-ins don't cove
 
 ## Anti-Patterns You Flag On Sight
 
-For each, read `.github/agents/kb/eval-framework/anti-patterns.md`:
+For each, read `references/anti-patterns.md`:
 
 1. AI-assisted scorer where deterministic would do (waste $) → FLAG
 2. Same model evaluating itself (judge bias) → FLAG

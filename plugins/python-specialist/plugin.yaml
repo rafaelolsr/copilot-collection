@@ -8,6 +8,6 @@ homepage: https://github.com/RafaelOLSR/copilot-collection
 repository: https://github.com/RafaelOLSR/copilot-collection
 tags:
   - python
-agent: ../../agents/python-specialist.agent.md
+agent: ../../agents/python-specialist/python-specialist.agent.md
 knowledge:
-  - ../../knowledge/python/
+  - ../../agents/python-specialist/references/

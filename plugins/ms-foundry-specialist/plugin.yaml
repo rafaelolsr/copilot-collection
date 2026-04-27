@@ -16,8 +16,8 @@ tags:
   - foundry-iq
   - agent-framework
   - opentelemetry
-agent: ../../agents/ms-foundry-specialist.agent.md
+agent: ../../agents/ms-foundry-specialist/ms-foundry-specialist.agent.md
 knowledge:
-  - ../../knowledge/ms-foundry/
+  - ../../agents/ms-foundry-specialist/references/
 requires:
   copilot_cli: ">=1.0.0"

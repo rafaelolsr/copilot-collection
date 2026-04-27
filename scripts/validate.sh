@@ -174,20 +174,32 @@ validate_agent() {
     fi
 
     # Test 10: KB directory exists if referenced
-    if echo "$body" | grep -qE 'knowledge/[a-z0-9-]+/'; then
-        local kb_domain
-        kb_domain=$(echo "$body" | grep -oE 'knowledge/[a-z0-9-]+/' | head -1 | sed 's|knowledge/||;s|/$||')
-        local kb_path="$REPO_ROOT/knowledge/$kb_domain"
+    # Post-migration: agents reference references/ relative to their own folder.
+    # Detect both new (references/) and legacy (knowledge/<x>/) patterns.
+    local agent_dir kb_path
+    agent_dir=$(dirname "$agent_file")
+
+    if echo "$body" | grep -qE '(^|[^a-zA-Z0-9_])references/'; then
+        kb_path="$agent_dir/references"
         if [[ ! -d "$kb_path" ]]; then
-            warn "agent references knowledge/$kb_domain/ but directory doesn't exist"
+            warn "agent references 'references/' but $kb_path doesn't exist"
         else
-            pass "KB directory exists: knowledge/$kb_domain/"
-            # Check required KB files
+            pass "KB directory exists: $kb_path"
             for required in index.md quick-reference.md _manifest.yaml anti-patterns.md; do
                 if [[ ! -f "$kb_path/$required" ]]; then
                     warn "missing $kb_path/$required"
                 fi
             done
+        fi
+    elif echo "$body" | grep -qE 'knowledge/[a-z0-9-]+/'; then
+        # Legacy layout (knowledge/<domain>/ at repo root)
+        local kb_domain
+        kb_domain=$(echo "$body" | grep -oE 'knowledge/[a-z0-9-]+/' | head -1 | sed 's|knowledge/||;s|/$||')
+        kb_path="$REPO_ROOT/knowledge/$kb_domain"
+        if [[ ! -d "$kb_path" ]]; then
+            warn "agent references legacy knowledge/$kb_domain/ but directory doesn't exist (migrate to references/)"
+        else
+            pass "legacy KB directory exists: knowledge/$kb_domain/"
         fi
     fi
 
@@ -277,19 +289,47 @@ validate_plugin() {
 echo "=== Copilot Collection Validator ==="
 echo "Repo: $REPO_ROOT"
 
-# Validate agents
+# Validate agents (post-migration: agents/<name>/<name>.agent.md)
 if [[ $# -ge 1 ]]; then
     validate_agent "$1"
 else
     while IFS= read -r f; do
         validate_agent "$f"
-    done < <(find "$REPO_ROOT/agents" -maxdepth 2 -name '*.agent.md' 2>/dev/null)
+    done < <(find "$REPO_ROOT/agents" -mindepth 2 -maxdepth 3 -name '*.agent.md' 2>/dev/null)
 fi
 
-# Validate KBs
+# Validate KBs (now nested as agents/<name>/references/)
 while IFS= read -r d; do
     validate_kb "$d"
-done < <(find "$REPO_ROOT/knowledge" -mindepth 1 -maxdepth 1 -type d 2>/dev/null)
+done < <(find "$REPO_ROOT/agents" -mindepth 2 -maxdepth 2 -type d -name 'references' 2>/dev/null)
+
+# Validate skill SKILL.md files
+validate_skill() {
+    local skill_md="$1"
+    local rel="${skill_md#$REPO_ROOT/}"
+    echo
+    echo "=== $rel ==="
+
+    if [[ ! -s "$skill_md" ]]; then
+        fail "SKILL.md is empty"
+        return
+    fi
+
+    if ! head -1 "$skill_md" | grep -q '^---$'; then
+        fail "missing YAML frontmatter"
+        return
+    fi
+
+    local has_name has_desc
+    has_name=$(grep -cE '^name:' "$skill_md" || true)
+    has_desc=$(grep -cE '^description:' "$skill_md" || true)
+    [[ "$has_name" -ge 1 ]] && pass "name field present" || fail "missing required 'name'"
+    [[ "$has_desc" -ge 1 ]] && pass "description field present" || fail "missing required 'description'"
+}
+
+while IFS= read -r s; do
+    validate_skill "$s"
+done < <(find "$REPO_ROOT/skills" -mindepth 2 -maxdepth 2 -name 'SKILL.md' 2>/dev/null)
 
 # Validate plugin manifests
 while IFS= read -r p; do

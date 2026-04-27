@@ -8,6 +8,6 @@ homepage: https://github.com/RafaelOLSR/copilot-collection
 repository: https://github.com/RafaelOLSR/copilot-collection
 tags:
   - eval-framework
-agent: ../../agents/eval-framework-specialist.agent.md
+agent: ../../agents/eval-framework-specialist/eval-framework-specialist.agent.md
 knowledge:
-  - ../../knowledge/eval-framework/
+  - ../../agents/eval-framework-specialist/references/

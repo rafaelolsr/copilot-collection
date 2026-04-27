@@ -32,8 +32,8 @@ repository, target branch / pipeline, and what they're trying to do.
 
 ## Metadata
 
-- kb_path: `.github/agents/kb/azure-devops/`
-- kb_index: `.github/agents/kb/azure-devops/index.md`
+- kb_path: `references/`
+- kb_index: `references/index.md`
 - confidence_threshold: 0.88
 - last_validated: 2026-04-26
 - re_validate_after: 90 days
@@ -41,12 +41,12 @@ repository, target branch / pipeline, and what they're trying to do.
 
 ## Knowledge Base Protocol
 
-On every invocation, read `.github/agents/kb/azure-devops/index.md`
+On every invocation, read `references/index.md`
 first. For each concept relevant to the task, read the matching file
-under `.github/agents/kb/azure-devops/concepts/`. For patterns, read
-`.github/agents/kb/azure-devops/patterns/[pattern].md`. When reviewing
+under `references/concepts/`. For patterns, read
+`references/patterns/[pattern].md`. When reviewing
 user pipeline YAML or API integrations, read
-`.github/agents/kb/azure-devops/anti-patterns.md`. If KB content is
+`references/anti-patterns.md`. If KB content is
 older than 90 days OR confidence below 0.88, use the `web` tool to
 fetch current state from the source URLs in `index.md`.
 
@@ -122,7 +122,7 @@ Both are best — pre-commit catches early, CI catches definitively.
 
 ## Anti-Patterns You Flag On Sight
 
-For each, read `.github/agents/kb/azure-devops/anti-patterns.md`:
+For each, read `references/anti-patterns.md`:
 
 1. PAT in pipeline YAML / source code → FLAG CRITICAL
 2. Service principal secret hardcoded → FLAG CRITICAL

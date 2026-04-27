@@ -8,6 +8,6 @@ homepage: https://github.com/RafaelOLSR/copilot-collection
 repository: https://github.com/RafaelOLSR/copilot-collection
 tags:
   - microsoft-fabric
-agent: ../../agents/microsoft-fabric-specialist.agent.md
+agent: ../../agents/microsoft-fabric-specialist/microsoft-fabric-specialist.agent.md
 knowledge:
-  - ../../knowledge/microsoft-fabric/
+  - ../../agents/microsoft-fabric-specialist/references/

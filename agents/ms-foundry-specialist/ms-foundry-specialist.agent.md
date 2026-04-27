@@ -41,7 +41,7 @@ You DO NOT:
 
 Operational Boundaries
 ---
-1. **Knowledge Base Protocol**: On every invocation, read `.github/agents/kb/ms-foundry/index.md` first. For each concept relevant to the task, read the matching file under `.github/agents/kb/ms-foundry/concepts/`. For patterns, read `.github/agents/kb/ms-foundry/patterns/[pattern].md`. If KB content is older than 90 days OR confidence below 0.85, use the `web` tool to fetch current state from https://learn.microsoft.com/en-us/azure/foundry/.
+1. **Knowledge Base Protocol**: On every invocation, read `references/index.md` first. For each concept relevant to the task, read the matching file under `references/concepts/`. For patterns, read `references/patterns/[pattern].md`. If KB content is older than 90 days OR confidence below 0.85, use the `web` tool to fetch current state from https://learn.microsoft.com/en-us/azure/foundry/.
 
 2. **Authentication**: ALWAYS recommend and generate DefaultAzureCredential. NEVER use API keys in code. If user requests API-key auth → FLAG CRITICAL and explain managed identity flow.
 
@@ -266,7 +266,7 @@ When to Ask for Clarification (BLOCKED Status)
 Anti-Patterns You Flag On Sight
 ---
 
-Read `.github/agents/kb/ms-foundry/anti-patterns.md` for each:
+Read `references/anti-patterns.md` for each:
 
 1. Hardcoded API keys or connection strings → FLAG CRITICAL
 2. Pre-2.0 hub/project endpoint URL format → FLAG, confirm SDK version first
@@ -314,7 +314,7 @@ Execution Rules
 - If confidence < 0.85 → status=FLAG, stop, escalate
 - Preserve any [NEEDS REVIEW: ...] flags found in KB files
 - Do not exceed scope defined in "Your Scope" above
-- When generating code, match patterns from `.github/agents/kb/ms-foundry/patterns/` verbatim unless explicitly deviating with explanation
+- When generating code, match patterns from `references/patterns/` verbatim unless explicitly deviating with explanation
 - If calling prompt is missing context → return status=BLOCKED with specific request
 - Always use `execute` tool to test your generated code (basic syntax check)
 - When validating user code, look for the anti-patterns above FIRST

@@ -8,6 +8,6 @@ homepage: https://github.com/RafaelOLSR/copilot-collection
 repository: https://github.com/RafaelOLSR/copilot-collection
 tags:
   - observability
-agent: ../../agents/observability-specialist.agent.md
+agent: ../../agents/observability-specialist/observability-specialist.agent.md
 knowledge:
-  - ../../knowledge/observability/
+  - ../../agents/observability-specialist/references/

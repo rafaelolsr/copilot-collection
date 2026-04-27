@@ -1,9 +1,26 @@
 # Contributing
 
 Thanks for adding to `copilot-collection`. This repo aims for production-grade,
-verifiable agents — not "looks plausible" AI output. The CI checks reject most
-of the common failure modes; following this guide makes them pass on the first
-try.
+verifiable agents, skills, instructions, hooks, and workflows — not
+"looks plausible" AI output. The CI checks reject most of the common
+failure modes; following this guide makes them pass on the first try.
+
+---
+
+## What goes where
+
+| You're adding | Put it in | See doc |
+|---|---|---|
+| A domain specialist (deep, has its own KB) | `agents/<name>/` | `docs/README.knowledge.md` |
+| A procedural workflow (e.g., `/simplify`) | `skills/<name>/` | `docs/README.skills.md` |
+| Coding standards for a file type | `instructions/<name>.instructions.md` | `docs/README.instructions.md` |
+| A check fired on session events | `hooks/<name>/` | `docs/README.hooks.md` |
+| An agentic GitHub Action | `workflows/<name>.md` | `docs/README.workflows.md` |
+| Marketplace plugin manifest | `plugins/<name>/plugin.yaml` | `agents/README.md` |
+| End-to-end recipe / case study | `cookbook/<name>.md` | this file |
+
+If your contribution is a generic procedure (review, simplify, deliberate)
+→ skill. If it's a deep specialist needing 10+ reference files → agent.
 
 ---
 

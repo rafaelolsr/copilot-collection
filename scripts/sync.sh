@@ -45,46 +45,56 @@ if [[ ! -d "$PROJECT_ROOT" ]]; then
     exit 1
 fi
 
-# Determine domain from agent file (assumes agent name == domain when not separate)
-COLLECTION_AGENT="$COLLECTION_ROOT/agents/${AGENT_NAME}.agent.md"
+# Layout (post-migration in copilot-collection):
+#   COLLECTION:  agents/<name>/<name>.agent.md
+#                agents/<name>/references/...
+#   PROJECT:     .github/agents/<name>.agent.md          (single-file layout)
+#                .github/agents/kb/<domain>/...           (separate KB folder)
+#
+# So sync translates between layouts. Domain (project-side KB folder name)
+# may differ from agent name; discover from the agent file body.
+
+COLLECTION_AGENT="$COLLECTION_ROOT/agents/${AGENT_NAME}/${AGENT_NAME}.agent.md"
+COLLECTION_KB="$COLLECTION_ROOT/agents/${AGENT_NAME}/references"
+COLLECTION_PLUGIN="$COLLECTION_ROOT/plugins/$AGENT_NAME"
+
 PROJECT_AGENT="$PROJECT_ROOT/.github/agents/${AGENT_NAME}.agent.md"
 
-# Discover the KB domain from the agent file. Supports both layouts:
-#   - .github/agents/kb/<domain>/ (Foundry project layout — preferred)
-#   - knowledge/<domain>/ (legacy layout)
+# Discover the KB domain (project-side folder name) from any available agent file.
 discover_domain() {
     local agent_file="$1"
     if [[ -f "$agent_file" ]]; then
-        # Try the .github/agents/kb/<domain>/ pattern first
+        # Project-side pattern: .github/agents/kb/<domain>/
         local d
         d=$(grep -oE '\.github/agents/kb/[a-z0-9-]+' "$agent_file" 2>/dev/null | head -1 | sed 's|.github/agents/kb/||')
         if [[ -n "$d" ]]; then
             echo "$d"
             return
         fi
-        # Fallback: legacy knowledge/<domain>/ pattern
-        grep -oE 'knowledge/[a-z0-9-]+' "$agent_file" 2>/dev/null | head -1 | sed 's|knowledge/||'
+        # Legacy collection-side pattern: knowledge/<domain>/
+        d=$(grep -oE 'knowledge/[a-z0-9-]+' "$agent_file" 2>/dev/null | head -1 | sed 's|knowledge/||')
+        if [[ -n "$d" ]]; then
+            echo "$d"
+            return
+        fi
+        # Post-migration collection-side: just "references/" — domain == agent name
     fi
 }
 
 DOMAIN=""
-if [[ -f "$COLLECTION_AGENT" ]]; then
-    DOMAIN=$(discover_domain "$COLLECTION_AGENT")
-fi
-if [[ -z "$DOMAIN" && -f "$PROJECT_AGENT" ]]; then
+if [[ -f "$PROJECT_AGENT" ]]; then
     DOMAIN=$(discover_domain "$PROJECT_AGENT")
 fi
+if [[ -z "$DOMAIN" && -f "$COLLECTION_AGENT" ]]; then
+    DOMAIN=$(discover_domain "$COLLECTION_AGENT")
+fi
 if [[ -z "$DOMAIN" ]]; then
-    yellow "Could not auto-detect KB domain from agent file."
-    yellow "Defaulting to agent name: $AGENT_NAME"
-    DOMAIN="$AGENT_NAME"
+    # Fallback: assume domain matches agent name minus "-specialist" suffix
+    DOMAIN="${AGENT_NAME%-specialist}"
+    yellow "Could not auto-detect domain from agent body. Using fallback: $DOMAIN"
 fi
 
-# In the collection: KB lives under knowledge/<domain>/ (flat layout)
-# In the project:     KB lives under .github/agents/kb/<domain>/ (nested layout)
-COLLECTION_KB="$COLLECTION_ROOT/knowledge/$DOMAIN"
 PROJECT_KB="$PROJECT_ROOT/.github/agents/kb/$DOMAIN"
-COLLECTION_PLUGIN="$COLLECTION_ROOT/plugins/$AGENT_NAME"
 
 blue "Collection root: $COLLECTION_ROOT"
 blue "Project root:    $PROJECT_ROOT"
@@ -133,14 +143,22 @@ do_pull() {
     yellow "Targets:"
     echo "  $COLLECTION_AGENT"
     echo "  $COLLECTION_KB/"
+    yellow "Path translation: .github/agents/kb/$DOMAIN/ → references/"
     read -r -p "Continue? [y/N] " confirm
     [[ "$confirm" =~ ^[Yy]$ ]] || { yellow "Aborted."; exit 0; }
 
     mkdir -p "$(dirname "$COLLECTION_AGENT")"
     cp -v "$PROJECT_AGENT" "$COLLECTION_AGENT"
 
+    # Translate paths in the agent body: .github/agents/kb/<domain>/ → references/
+    sed -i.bak \
+        -e "s|.github/agents/kb/${DOMAIN}/|references/|g" \
+        -e "s|knowledge/${DOMAIN}/|references/|g" \
+        "$COLLECTION_AGENT"
+    rm "${COLLECTION_AGENT}.bak"
+
     if [[ -d "$PROJECT_KB" ]]; then
-        mkdir -p "$COLLECTION_ROOT/knowledge"
+        mkdir -p "$COLLECTION_KB"
         rsync -av --delete "$PROJECT_KB/" "$COLLECTION_KB/"
     fi
 
@@ -160,14 +178,21 @@ do_push() {
     yellow "Targets:"
     echo "  $PROJECT_AGENT"
     echo "  $PROJECT_KB/"
+    yellow "Path translation: references/ → .github/agents/kb/$DOMAIN/"
     read -r -p "Continue? [y/N] " confirm
     [[ "$confirm" =~ ^[Yy]$ ]] || { yellow "Aborted."; exit 0; }
 
     mkdir -p "$(dirname "$PROJECT_AGENT")"
     cp -v "$COLLECTION_AGENT" "$PROJECT_AGENT"
 
+    # Translate paths back: references/ → .github/agents/kb/<domain>/
+    sed -i.bak \
+        -e "s|references/|.github/agents/kb/${DOMAIN}/|g" \
+        "$PROJECT_AGENT"
+    rm "${PROJECT_AGENT}.bak"
+
     if [[ -d "$COLLECTION_KB" ]]; then
-        mkdir -p "$PROJECT_ROOT/knowledge"
+        mkdir -p "$(dirname "$PROJECT_KB")"
         rsync -av --delete "$COLLECTION_KB/" "$PROJECT_KB/"
     fi
 
