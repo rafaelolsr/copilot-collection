@@ -1,6 +1,6 @@
 # Type safety in Python — what mypy --strict catches
 
-> **Last validated**: 2026-04-26
+> **Last validated**: 2026-04-27
 > **Confidence**: 0.94
 > **Sources**: https://mypy.readthedocs.io/, https://typing.python.org/
 
@@ -24,7 +24,7 @@ def find(name: str) -> User | None: ...
 
 # Constants
 MAX_RETRIES: int = 5
-DEFAULT_MODEL: Final[str] = "claude-sonnet-4-5"
+DEFAULT_MODEL: Final[str] = "claude-sonnet-4-6"
 ```
 
 ## Protocols — duck typing with structure
@@ -124,11 +124,11 @@ Bare `# type: ignore` should fail review. So should `Any`-typed parameters in ne
 from typing import Final, Literal
 
 MAX_TOKENS: Final = 4096  # cannot be reassigned
-Model = Literal["claude-sonnet-4-5", "claude-opus-4-1", "gpt-4.1"]
+Model = Literal["claude-sonnet-4-6", "claude-opus-4-7", "gpt-4.1"]
 
 def call(model: Model, prompt: str) -> str: ...
 
-call("claude-sonnet-4-5", "hi")  # OK
+call("claude-sonnet-4-6", "hi")  # OK
 call("gpt-3.5", "hi")  # mypy error — not in Literal
 ```
 

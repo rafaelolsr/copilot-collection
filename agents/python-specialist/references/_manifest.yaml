@@ -1,5 +1,5 @@
 domain: python
-last_validated: "2026-04-26"
+last_validated: "2026-04-27"
 status: active
 concepts:
   - name: async-await-fundamentals

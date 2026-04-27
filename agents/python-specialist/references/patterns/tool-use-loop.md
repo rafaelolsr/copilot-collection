@@ -1,6 +1,6 @@
 # Tool-use loop with bounded iterations
 
-> **Last validated**: 2026-04-26
+> **Last validated**: 2026-04-27
 > **Confidence**: 0.92
 > **Source**: https://platform.claude.com/docs/en/docs/build-with-claude/tool-use
 
@@ -166,7 +166,7 @@ HANDLERS = {"get_weather": get_weather}
 client = anthropic.AsyncAnthropic()
 final_text, history = await run_agent(
     client,
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     system="You help users with weather questions.",
     user_message="What's the weather in Tokyo and Paris?",
     tools=TOOLS,

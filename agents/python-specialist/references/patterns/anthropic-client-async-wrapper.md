@@ -1,6 +1,6 @@
 # Anthropic async client wrapper — production-grade
 
-> **Last validated**: 2026-04-26
+> **Last validated**: 2026-04-27
 > **Confidence**: 0.93
 
 ## When to use this pattern
@@ -42,9 +42,11 @@ class ModelPricing:
 
 
 PRICING: dict[str, ModelPricing] = {
-    "claude-sonnet-4-5": ModelPricing(3.0, 15.0, 0.30, 3.75),
-    "claude-opus-4-1":   ModelPricing(15.0, 75.0, 1.50, 18.75),
-    "claude-haiku-4-5":  ModelPricing(1.0, 5.0, 0.10, 1.25),
+    # Pricing per million tokens. Source: https://platform.claude.com/docs/en/about-claude/pricing
+    # Last verified: 2026-04-27
+    "claude-opus-4-7":   ModelPricing(input_per_mtok=5.0,  output_per_mtok=25.0, cache_read_per_mtok=0.50, cache_write_per_mtok=6.25),
+    "claude-sonnet-4-6": ModelPricing(input_per_mtok=3.0,  output_per_mtok=15.0, cache_read_per_mtok=0.30, cache_write_per_mtok=3.75),
+    "claude-haiku-4-5":  ModelPricing(input_per_mtok=1.0,  output_per_mtok=5.0,  cache_read_per_mtok=0.10, cache_write_per_mtok=1.25),
 }
 
 
@@ -167,7 +169,7 @@ async def main() -> None:
         cost_hook=lambda **kw: print(f"${kw['cost_usd']:.4f}", kw["model"]),
     )
     response = await client.messages_create(
-        model="claude-sonnet-4-5",
+        model="claude-sonnet-4-6",
         max_tokens=1024,
         messages=[{"role": "user", "content": "Hello"}],
     )

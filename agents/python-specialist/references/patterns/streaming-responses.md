@@ -1,6 +1,6 @@
 # Streaming responses with backpressure & cancellation
 
-> **Last validated**: 2026-04-26
+> **Last validated**: 2026-04-27
 > **Confidence**: 0.90
 > **Source**: https://platform.claude.com/docs/en/docs/build-with-claude/streaming
 
@@ -95,7 +95,7 @@ async def main() -> None:
         stream_to_queue(
             stream_response(
                 client,
-                model="claude-sonnet-4-5",
+                model="claude-sonnet-4-6",
                 system="You are concise.",
                 user_message="Tell me a story",
             ),

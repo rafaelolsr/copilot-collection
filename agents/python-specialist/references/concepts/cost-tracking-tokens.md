@@ -1,6 +1,6 @@
 # Cost & token accounting for LLM calls
 
-> **Last validated**: 2026-04-26
+> **Last validated**: 2026-04-27
 > **Confidence**: 0.90
 > **Source**: https://platform.claude.com/docs/en/api/
 
@@ -61,8 +61,10 @@ class ModelPricing:
     cache_write_per_mtok: float
 
 PRICING: dict[str, ModelPricing] = {
-    "claude-sonnet-4-5": ModelPricing(3.0, 15.0, 0.30, 3.75),
-    "claude-opus-4-1":   ModelPricing(15.0, 75.0, 1.50, 18.75),
+    # Pricing per million tokens. Source: https://platform.claude.com/docs/en/about-claude/pricing
+    # Last verified: 2026-04-27
+    "claude-opus-4-7":   ModelPricing(5.0, 25.0, 0.50, 6.25),
+    "claude-sonnet-4-6": ModelPricing(3.0, 15.0, 0.30, 3.75),
     "claude-haiku-4-5":  ModelPricing(1.0, 5.0, 0.10, 1.25),
 }
 
@@ -134,7 +136,7 @@ Anthropic's prompt caching: mark a section as cacheable, get ~10× cost reductio
 
 ```python
 response = await client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     system=[
         {
             "type": "text",

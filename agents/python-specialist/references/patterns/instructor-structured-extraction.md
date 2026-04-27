@@ -1,6 +1,6 @@
 # Structured extraction with `instructor` + Pydantic
 
-> **Last validated**: 2026-04-26
+> **Last validated**: 2026-04-27
 > **Confidence**: 0.91
 > **Source**: https://python.useinstructor.com/
 
@@ -50,7 +50,7 @@ class StructuredExtractor:
         self,
         client: anthropic.AsyncAnthropic | None = None,
         *,
-        model: str = "claude-sonnet-4-5",
+        model: str = "claude-sonnet-4-6",
         max_retries: int = 3,
     ) -> None:
         raw = client or anthropic.AsyncAnthropic()
@@ -123,7 +123,7 @@ amount: float = invoice.total  # statically and runtime-typed
 
 | Argument | Default | When to override |
 |---|---|---|
-| `model` | `claude-sonnet-4-5` | Use opus for complex schemas; haiku for simple |
+| `model` | `claude-sonnet-4-6` | Use opus for complex schemas; haiku for simple |
 | `max_retries` | `3` | Raise to 5 for high-stakes extraction; lower to 1 if you'd rather fail fast |
 | `mode` | `ANTHROPIC_TOOLS` | Use `ANTHROPIC_JSON` if you don't want tool-shaped output |
 

@@ -1,6 +1,6 @@
 # Testing LLM-integrated code
 
-> **Last validated**: 2026-04-26
+> **Last validated**: 2026-04-27
 > **Confidence**: 0.92
 > **Source**: https://docs.pytest.org/en/stable/
 
@@ -31,7 +31,7 @@ def mock_anthropic_client() -> AsyncMock:
         id="msg_test",
         type="message",
         role="assistant",
-        model="claude-sonnet-4-5",
+        model="claude-sonnet-4-6",
         content=[{"type": "text", "text": "mocked response"}],
         stop_reason="end_turn",
         usage={"input_tokens": 10, "output_tokens": 5},
@@ -101,7 +101,7 @@ async def llm_judge(question: str, answer: str) -> int:
     Rate the answer 1-5 on accuracy and helpfulness. Return only the number.
     """
     response = await judge_client.messages.create(
-        model="claude-opus-4-1",
+        model="claude-opus-4-7",
         messages=[{"role": "user", "content": judge_prompt}],
         max_tokens=5,
     )

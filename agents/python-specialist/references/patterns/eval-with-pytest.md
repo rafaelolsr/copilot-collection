@@ -1,6 +1,6 @@
 # Eval harness with pytest + parametrize + mock LLM
 
-> **Last validated**: 2026-04-26
+> **Last validated**: 2026-04-27
 > **Confidence**: 0.91
 
 ## When to use this pattern
@@ -46,7 +46,7 @@ def mock_anthropic_client() -> AsyncMock:
         id="msg_test",
         type="message",
         role="assistant",
-        model="claude-sonnet-4-5",
+        model="claude-sonnet-4-6",
         content=[MagicMock(type="text", text="mocked response")],
         stop_reason="end_turn",
         usage=MagicMock(
@@ -89,10 +89,10 @@ async def test_extractor_calls_llm_once(mock_anthropic_client):
 
 @pytest.mark.asyncio
 async def test_extractor_passes_correct_model(mock_anthropic_client):
-    extractor = InvoiceExtractor(client=mock_anthropic_client, model="claude-sonnet-4-5")
+    extractor = InvoiceExtractor(client=mock_anthropic_client, model="claude-sonnet-4-6")
     await extractor.extract("test")
     call_kwargs = mock_anthropic_client.messages.create.call_args.kwargs
-    assert call_kwargs["model"] == "claude-sonnet-4-5"
+    assert call_kwargs["model"] == "claude-sonnet-4-6"
 
 
 @pytest.mark.asyncio
