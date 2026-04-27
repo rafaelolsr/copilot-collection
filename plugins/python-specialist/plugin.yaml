@@ -2,10 +2,10 @@ name: python-specialist
 version: 0.1.0
 description: |
   Python for AI/LLM systems specialist. Async clients, structured output, retry logic, tool-use loops, evals.
-author: datageek
+author: RafaelOLSR
 license: MIT
-homepage: https://github.com/datageek/copilot-collection
-repository: https://github.com/datageek/copilot-collection
+homepage: https://github.com/RafaelOLSR/copilot-collection
+repository: https://github.com/RafaelOLSR/copilot-collection
 tags:
   - python
 agent: ../../agents/python-specialist.agent.md

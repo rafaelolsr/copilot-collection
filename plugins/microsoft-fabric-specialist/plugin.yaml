@@ -2,10 +2,10 @@ name: microsoft-fabric-specialist
 version: 0.1.0
 description: |
   Microsoft Fabric specialist. Lakehouse, Warehouse, OneLake, Delta tables, semantic-model REST API, Fabric SQL endpoint.
-author: datageek
+author: RafaelOLSR
 license: MIT
-homepage: https://github.com/datageek/copilot-collection
-repository: https://github.com/datageek/copilot-collection
+homepage: https://github.com/RafaelOLSR/copilot-collection
+repository: https://github.com/RafaelOLSR/copilot-collection
 tags:
   - microsoft-fabric
 agent: ../../agents/microsoft-fabric-specialist.agent.md

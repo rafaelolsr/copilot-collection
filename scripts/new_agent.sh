@@ -91,10 +91,10 @@ name: $NAME
 version: 0.1.0
 description: |
   $DESC
-author: datageek
+author: RafaelOLSR
 license: MIT
-homepage: https://github.com/datageek/copilot-collection
-repository: https://github.com/datageek/copilot-collection
+homepage: https://github.com/RafaelOLSR/copilot-collection
+repository: https://github.com/RafaelOLSR/copilot-collection
 tags:
   - $DOMAIN
 agent: ../../agents/${NAME}.agent.md

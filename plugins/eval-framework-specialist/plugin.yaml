@@ -2,10 +2,10 @@ name: eval-framework-specialist
 version: 0.1.0
 description: |
   Eval framework specialist. Deterministic / AI-assisted / agentic metrics, golden datasets, regression tracking, Azure AI Evaluation SDK.
-author: datageek
+author: RafaelOLSR
 license: MIT
-homepage: https://github.com/datageek/copilot-collection
-repository: https://github.com/datageek/copilot-collection
+homepage: https://github.com/RafaelOLSR/copilot-collection
+repository: https://github.com/RafaelOLSR/copilot-collection
 tags:
   - eval-framework
 agent: ../../agents/eval-framework-specialist.agent.md

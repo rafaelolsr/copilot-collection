@@ -46,7 +46,7 @@ contribution guidelines.
 
 ```bash
 # Register this collection as a marketplace (one-time)
-copilot plugin marketplace add datageek/copilot-collection
+copilot plugin marketplace add RafaelOLSR/copilot-collection
 
 # Install a single agent
 copilot plugin install ms-foundry-specialist@copilot-collection
@@ -55,7 +55,7 @@ copilot plugin install ms-foundry-specialist@copilot-collection
 ### Option 2 — Git clone & copy
 
 ```bash
-git clone https://github.com/datageek/copilot-collection.git
+git clone https://github.com/RafaelOLSR/copilot-collection.git
 cp copilot-collection/agents/ms-foundry-specialist.agent.md \
    your-repo/.github/agents/
 cp -r copilot-collection/knowledge/ms-foundry your-repo/knowledge/

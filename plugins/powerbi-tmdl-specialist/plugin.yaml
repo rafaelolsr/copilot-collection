@@ -2,10 +2,10 @@ name: powerbi-tmdl-specialist
 version: 0.1.0
 description: |
   Power BI / TMDL / DAX specialist. PBIP projects, DAX evaluation context, time intelligence, RLS, XMLA deployment.
-author: datageek
+author: RafaelOLSR
 license: MIT
-homepage: https://github.com/datageek/copilot-collection
-repository: https://github.com/datageek/copilot-collection
+homepage: https://github.com/RafaelOLSR/copilot-collection
+repository: https://github.com/RafaelOLSR/copilot-collection
 tags:
   - powerbi-tmdl
 agent: ../../agents/powerbi-tmdl-specialist.agent.md

@@ -5,10 +5,10 @@ description: |
   reviews, and debugs Foundry Agent Service, Foundry IQ knowledge bases,
   azure-ai-projects / azure-ai-agents SDKs, Microsoft Agent Framework, model
   deployments, tools, threads, runs, evaluations, and OpenTelemetry tracing.
-author: datageek
+author: RafaelOLSR
 license: MIT
-homepage: https://github.com/datageek/copilot-collection
-repository: https://github.com/datageek/copilot-collection
+homepage: https://github.com/RafaelOLSR/copilot-collection
+repository: https://github.com/RafaelOLSR/copilot-collection
 tags:
   - microsoft-foundry
   - azure

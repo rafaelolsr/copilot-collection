@@ -1,7 +1,7 @@
 {
   "ignorePatterns": [
     { "pattern": "^http://localhost" },
-    { "pattern": "^https://github.com/datageek" }
+    { "pattern": "^https://github.com/RafaelOLSR" }
   ],
   "timeout": "10s",
   "retryOn429": true,
