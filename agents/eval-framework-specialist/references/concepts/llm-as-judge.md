@@ -62,14 +62,14 @@ The 4 critical pieces:
 
 ## Model selection
 
-Use a DIFFERENT model than the candidate. If you're evaluating Claude Sonnet, judge with Opus or with GPT-4. Same-model judging gives bias toward your candidate's failure modes.
+Use a DIFFERENT model than the candidate. If you're evaluating <provider>-balanced, judge with Opus or with GPT-4. Same-model judging gives bias toward your candidate's failure modes.
 
 | Candidate model | Recommended judge |
 |---|---|
-| Claude Sonnet 4.5 | Claude Opus 4.1 OR GPT-4.1 |
-| Claude Opus 4.1 | Claude Sonnet 4.5 (faster) OR GPT-4.1 |
-| GPT-4o | Claude Opus 4.1 |
-| Claude Haiku | Claude Sonnet 4.5 |
+| <provider>-balanced | <provider>-flagship OR GPT-4.1 |
+| <provider>-flagship | <provider>-balanced (faster) OR GPT-4.1 |
+| GPT-4o | <provider>-flagship |
+| <provider>-fast | <provider>-balanced |
 
 Use a stronger model than the candidate when feasible — the judge's job is harder.
 
@@ -104,7 +104,7 @@ Candidate B: {b}
 Respond with exactly "A", "B", or "TIE".
 """
     response = await judge_client.messages.create(
-        model="claude-opus-4-1",
+        model="<provider>-flagship",
         max_tokens=2,
         messages=[{"role": "user", "content": judge_prompt}],
         temperature=0,

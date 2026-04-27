@@ -2,14 +2,14 @@
 
 > **Last validated**: 2026-04-26
 > **Confidence**: 0.93
-> **Sources**: https://tenacity.readthedocs.io/, https://platform.claude.com/docs/en/api/errors
+> **Sources**: https://tenacity.readthedocs.io/, https://www.python-httpx.org/errors
 
 ## What to retry vs. what NOT to retry
 
 | Status | Meaning | Retry? |
 |---|---|---|
 | 429 | Rate limit | YES — exponential backoff, respect `retry-after` header |
-| 529 | Anthropic-specific overload | YES — exponential backoff |
+| 529 | LLM provider overload signal | YES — exponential backoff |
 | 500/502/503/504 | Server / gateway errors | YES — exponential backoff |
 | `httpx.ReadTimeout` / `ConnectTimeout` | Network issue | YES — limited retries |
 | 400 | Bad request (schema, invalid params) | NO — wastes tokens, won't fix itself |
@@ -31,7 +31,7 @@ from tenacity import (
     before_sleep_log,
 )
 import logging
-import anthropic
+from my_app import llm_client  # vendor-neutral wrapper
 import httpx
 
 logger = logging.getLogger(__name__)
@@ -40,8 +40,8 @@ logger = logging.getLogger(__name__)
     stop=stop_after_attempt(5),
     wait=wait_exponential(multiplier=1, min=2, max=60),
     retry=retry_if_exception_type((
-        anthropic.APIStatusError,
-        anthropic.APITimeoutError,
+        httpx.HTTPStatusError,
+        httpx.TimeoutException,
         httpx.HTTPStatusError,
         httpx.TimeoutException,
     )),
@@ -61,13 +61,13 @@ Key flags:
 
 ## Filter on status code, not just exception type
 
-Anthropic raises `APIStatusError` for any non-2xx — including 400. To retry only transient ones:
+Many LLM SDKs raise an error class for any non-2xx — including 400. To retry only transient ones:
 
 ```python
 def is_retryable(exc: BaseException) -> bool:
-    if isinstance(exc, anthropic.APIStatusError):
+    if isinstance(exc, httpx.HTTPStatusError):
         return exc.status_code in {429, 500, 502, 503, 504, 529}
-    if isinstance(exc, (anthropic.APITimeoutError, anthropic.APIConnectionError)):
+    if isinstance(exc, (httpx.TimeoutException, httpx.ConnectError)):
         return True
     return False
 
@@ -92,10 +92,10 @@ from tenacity import wait_random_exponential
 wait=wait_random_exponential(min=2, max=60)
 ```
 
-For Anthropic specifically, the SDK has built-in retry on transient errors. If you set `max_retries` on the client, you may not need tenacity at all:
+Some LLM SDKs, the SDK has built-in retry on transient errors. If you set `max_retries` on the client, you may not need tenacity at all:
 
 ```python
-client = anthropic.AsyncAnthropic(max_retries=3, timeout=30.0)
+client = llm_client.AsyncLLMClient(max_retries=3, timeout=30.0)
 ```
 
 Layer tenacity on top only if you need more control (logging, circuit breakers, custom backoff).
@@ -128,6 +128,6 @@ After 5 consecutive failures the breaker opens for 60s, raising `CircuitBreakerE
 
 ## See also
 
-- `patterns/anthropic-client-async-wrapper.md` — full client with retry baked in
+- `patterns/llm-client-async-wrapper.md` — full client with retry baked in
 - `concepts/async-await-fundamentals.md` — timeout handling
 - `anti-patterns.md` (items 9, 10)

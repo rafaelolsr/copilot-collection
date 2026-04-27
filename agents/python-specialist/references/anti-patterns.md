@@ -10,7 +10,7 @@
 
 Wrong:
 ```python
-client = anthropic.AsyncAnthropic(api_key="sk-ant-abc123...")
+client = llm_client.AsyncLLMClient(api_key="sk-ant-abc123...")
 ```
 
 Why: keys leak into git, logs, and Slack messages. Once leaked, they must be revoked — and 12-factor apps don't deploy keys via code.
@@ -18,7 +18,7 @@ Why: keys leak into git, logs, and Slack messages. Once leaked, they must be rev
 Correct:
 ```python
 import os
-client = anthropic.AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+client = llm_client.AsyncLLMClient(api_key=os.environ["LLM_API_KEY"])
 ```
 
 Related: `concepts/secrets-and-key-rotation.md`
@@ -29,14 +29,14 @@ Related: `concepts/secrets-and-key-rotation.md`
 
 Wrong:
 ```python
-api_key = os.getenv("ANTHROPIC_API_KEY", "sk-ant-fallback-key")
+api_key = os.getenv("LLM_API_KEY", "sk-ant-fallback-key")
 ```
 
 Why: fallback survives leaks. `os.environ[KEY]` fails fast at startup.
 
 Correct:
 ```python
-api_key = os.environ["ANTHROPIC_API_KEY"]  # KeyError if missing
+api_key = os.environ["LLM_API_KEY"]  # KeyError if missing
 ```
 
 ---
@@ -77,7 +77,7 @@ Why: catches `KeyboardInterrupt`, `SystemExit`, `MemoryError`. Hides bugs.
 
 Correct:
 ```python
-except (anthropic.APIStatusError, httpx.HTTPError) as exc:
+except (httpx.HTTPStatusError, httpx.HTTPError) as exc:
     logger.exception("llm_failed")
     raise
 ```
@@ -131,16 +131,16 @@ Related: `concepts/async-await-fundamentals.md`
 
 Wrong:
 ```python
-async def call_claude(prompt: str) -> str:
-    client = anthropic.Anthropic()  # sync client
+async def call_llm(prompt: str) -> str:
+    client = llm_client.LLMClient()  # sync client
     response = client.messages.create(...)  # blocks event loop
     return response.content[0].text
 ```
 
 Correct:
 ```python
-async def call_claude(prompt: str) -> str:
-    client = anthropic.AsyncAnthropic()
+async def call_llm(prompt: str) -> str:
+    client = llm_client.AsyncLLMClient()
     response = await client.messages.create(...)
     return response.content[0].text
 ```
@@ -184,9 +184,9 @@ Why: 4xx errors won't fix themselves on retry — wastes tokens and money.
 Correct:
 ```python
 def is_transient(exc):
-    if isinstance(exc, anthropic.APIStatusError):
+    if isinstance(exc, httpx.HTTPStatusError):
         return exc.status_code in {429, 500, 502, 503, 504, 529}
-    return isinstance(exc, (anthropic.APITimeoutError, anthropic.APIConnectionError))
+    return isinstance(exc, (httpx.TimeoutException, httpx.ConnectError))
 
 @retry(stop=stop_after_attempt(5), retry=retry_if_exception(is_transient))
 async def call_llm(): ...
@@ -200,13 +200,13 @@ Related: `concepts/retry-patterns-llm.md`
 
 Wrong:
 ```python
-client = anthropic.AsyncAnthropic()
+client = llm_client.AsyncLLMClient()
 response = await client.messages.create(...)  # could hang indefinitely
 ```
 
 Correct:
 ```python
-client = anthropic.AsyncAnthropic(timeout=30.0)
+client = llm_client.AsyncLLMClient(timeout=30.0)
 # or per-call:
 async with asyncio.timeout(30):
     response = await client.messages.create(...)
@@ -373,7 +373,7 @@ Related: `concepts/cost-tracking-tokens.md`
 Wrong:
 ```python
 async def test_extract():
-    client = anthropic.AsyncAnthropic()  # real client, real cost
+    client = llm_client.AsyncLLMClient()  # real client, real cost
     result = await extract(client, "test")
     assert result.amount > 0
 ```
@@ -381,14 +381,14 @@ async def test_extract():
 Correct:
 ```python
 @pytest.mark.eval  # opt-in marker, excluded from default runs
-async def test_extract_eval(real_anthropic_client):
-    result = await extract(real_anthropic_client, "test")
+async def test_extract_eval(real_llm_client):
+    result = await extract(real_llm_client, "test")
     assert result.amount > 0
 
 # fast unit version with mock:
-async def test_extract_unit(mock_anthropic_client):
-    result = await extract(mock_anthropic_client, "test")
-    assert mock_anthropic_client.messages.create.called
+async def test_extract_unit(mock_llm_client):
+    result = await extract(mock_llm_client, "test")
+    assert mock_llm_client.messages.create.called
 ```
 
 Related: `concepts/testing-llm-code.md`

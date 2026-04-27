@@ -80,7 +80,7 @@ Rubric:
 Respond with a single integer from 1-5.
 """
     response = await judge_client.messages.create(
-        model="claude-opus-4-1",
+        model="<provider>-flagship",
         max_tokens=5,
         messages=[{"role": "user", "content": judge_prompt}],
     )

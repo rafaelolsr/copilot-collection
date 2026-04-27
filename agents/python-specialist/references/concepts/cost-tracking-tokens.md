@@ -2,7 +2,7 @@
 
 > **Last validated**: 2026-04-27
 > **Confidence**: 0.90
-> **Source**: https://platform.claude.com/docs/en/api/
+> **Source**: https://www.python-httpx.org/
 
 ## Why this matters
 
@@ -31,8 +31,8 @@ response = await client.messages.create(...)
 usage = response.usage
 # usage.input_tokens
 # usage.output_tokens
-# usage.cache_creation_input_tokens   (Anthropic prompt caching)
-# usage.cache_read_input_tokens       (Anthropic prompt caching)
+# usage.cache_creation_input_tokens   (provider prompt caching)
+# usage.cache_read_input_tokens       (provider prompt caching)
 ```
 
 For OpenAI:
@@ -61,11 +61,11 @@ class ModelPricing:
     cache_write_per_mtok: float
 
 PRICING: dict[str, ModelPricing] = {
-    # Pricing per million tokens. Source: https://platform.claude.com/docs/en/about-claude/pricing
+    # Pricing per million tokens. Source: <your provider pricing page>
     # Last verified: 2026-04-27
-    "claude-opus-4-7":   ModelPricing(5.0, 25.0, 0.50, 6.25),
-    "claude-sonnet-4-6": ModelPricing(3.0, 15.0, 0.30, 3.75),
-    "claude-haiku-4-5":  ModelPricing(1.0, 5.0, 0.10, 1.25),
+    "<provider>-flagship":   ModelPricing(5.0, 25.0, 0.50, 6.25),
+    "<provider>-balanced": ModelPricing(3.0, 15.0, 0.30, 3.75),
+    "<provider>-fast":  ModelPricing(1.0, 5.0, 0.10, 1.25),
 }
 
 def calc_cost(model: str, usage) -> float:
@@ -128,15 +128,15 @@ def check_budget(prompt: str, context: list[str], max_input_tokens: int = 100_00
         raise BudgetExceededError(f"Estimated {total} tokens, limit {max_input_tokens}")
 ```
 
-For exact counts, use `anthropic.Anthropic().beta.messages.count_tokens()` or `tiktoken` (OpenAI).
+For exact counts, use `llm_client.LLMClient().beta.messages.count_tokens()` or `tiktoken` (OpenAI).
 
 ## Prompt caching — the easy 80% win
 
-Anthropic's prompt caching: mark a section as cacheable, get ~10× cost reduction on repeated calls within 5 min:
+Provider prompt caching: mark a section as cacheable, get ~10× cost reduction on repeated calls within 5 min:
 
 ```python
 response = await client.messages.create(
-    model="claude-sonnet-4-6",
+    model="<provider>-balanced",
     system=[
         {
             "type": "text",
@@ -162,6 +162,6 @@ Place the cache breakpoint **after** stable content, **before** variable content
 
 ## See also
 
-- `patterns/anthropic-client-async-wrapper.md` — wrapper with built-in cost tracking
+- `patterns/llm-client-async-wrapper.md` — wrapper with built-in cost tracking
 - `concepts/secrets-and-key-rotation.md` — billing API keys go in env vars too
 - `anti-patterns.md` (item 17)

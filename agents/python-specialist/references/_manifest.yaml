@@ -24,8 +24,8 @@ concepts:
     path: concepts/type-safety-python.md
     confidence: 0.90
 patterns:
-  - name: anthropic-client-async-wrapper
-    path: patterns/anthropic-client-async-wrapper.md
+  - name: llm-client-async-wrapper
+    path: patterns/llm-client-async-wrapper.md
     confidence: 0.90
   - name: code-review-checklist
     path: patterns/code-review-checklist.md

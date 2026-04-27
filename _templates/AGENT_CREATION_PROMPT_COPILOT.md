@@ -23,8 +23,7 @@ content for the requested domain.
 
 Specifically forbidden substitutions (unless explicitly named in
 the DECLARATION):
-  - Anthropic SDK / Claude API patterns
-  - OpenAI SDK patterns
+  - Generic LLM SDK / vendor API patterns
   - tenacity / instructor / langchain / llama-index
   - Pydantic patterns disconnected from the domain
   - Generic "async Python LLM client" patterns
@@ -538,8 +537,7 @@ The agent is not done until tests pass.
         NOT in the declaration → DELETE it and report violation.
       - grep file for forbidden tokens UNLESS they appear in
         DOMAIN.versions or DOMAIN.sources:
-          "anthropic", "openai", "tenacity", "instructor",
-          "langchain", "llama-index", "from anthropic"
+          "tenacity", "instructor", "langchain", "llama-index"
       - If forbidden tokens found → file is substituted content,
         DELETE and regenerate after re-fetching the source URL.
 

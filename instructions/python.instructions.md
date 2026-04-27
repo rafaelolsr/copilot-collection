@@ -86,7 +86,7 @@ def fetch_user(user_id: str) -> User:
 Inside `async def`:
 - ❌ `time.sleep(N)` — use `await asyncio.sleep(N)`
 - ❌ `requests.get(...)` — use `httpx.AsyncClient`
-- ❌ `client.messages.create(...)` (sync SDK) — use `AsyncAnthropic` / `AsyncOpenAI`
+- ❌ `client.messages.create(...)` (sync LLM SDK) — use the SDK's async variant
 - ❌ blocking file I/O without `asyncio.to_thread`
 
 ## Structured data — Pydantic v2
@@ -116,15 +116,15 @@ NEVER:
 from tenacity import (
     retry, stop_after_attempt, wait_exponential, retry_if_exception_type,
 )
-import anthropic, httpx
+import httpx
 
 @retry(
     stop=stop_after_attempt(5),
     wait=wait_exponential(multiplier=1, min=2, max=60),
     retry=retry_if_exception_type((
-        anthropic.APIStatusError,
-        anthropic.APITimeoutError,
+        httpx.HTTPStatusError,
         httpx.TimeoutException,
+        httpx.ConnectError,
     )),
     reraise=True,
 )
@@ -142,8 +142,8 @@ Rules:
 ```python
 # CORRECT — narrow, log context, re-raise
 try:
-    response = await client.messages.create(...)
-except (anthropic.APIStatusError, anthropic.APITimeoutError) as exc:
+    response = await llm_client.create(...)
+except (httpx.HTTPStatusError, httpx.TimeoutException) as exc:
     logger.exception(
         "llm_call_failed",
         extra={"operation_id": op_id, "model": model_name},
@@ -152,7 +152,7 @@ except (anthropic.APIStatusError, anthropic.APITimeoutError) as exc:
 
 # WRONG — bare except, swallows
 try:
-    response = await client.messages.create(...)
+    response = await llm_client.create(...)
 except:
     return None
 ```
@@ -216,7 +216,7 @@ Tests that hit real APIs MUST be marker-gated:
 ```python
 @pytest.mark.eval
 @pytest.mark.smoke
-async def test_real_extraction(real_anthropic_client):
+async def test_real_extraction(real_llm_client):
     ...
 ```
 
@@ -227,12 +227,12 @@ Default `pytest` runs only unit. CI runs evals only with `-m eval`.
 Never in source code:
 ```python
 # WRONG
-client = anthropic.Anthropic(api_key="sk-ant-...")
+client = LLMClient(api_key="sk-live-...")
 api_key = os.getenv("KEY", "sk-default-fallback")  # fallback survives leaks
 
 # CORRECT
-client = anthropic.AsyncAnthropic(
-    api_key=os.environ["ANTHROPIC_API_KEY"],  # raises if missing — fail fast
+client = AsyncLLMClient(
+    api_key=os.environ["LLM_API_KEY"],  # raises if missing — fail fast
 )
 ```
 

@@ -35,12 +35,12 @@ my-agent/
 [project]
 name = "my-agent"
 version = "0.1.0"
-description = "AI agent built on Claude with structured output"
+description = "AI agent with structured output"
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 
 dependencies = [
-    "anthropic>=0.40.0",
+    "openai>=1.50.0",
     "pydantic>=2.9.0",
     "pydantic-settings>=2.5.0",
     "instructor>=1.4.0",
@@ -166,7 +166,7 @@ Thumbs.db
 
 ```
 # Copy to .env and fill in real values. Never commit .env.
-ANTHROPIC_API_KEY=sk-ant-...
+LLM_API_KEY=sk-live-redacted
 OPENAI_API_KEY=
 LOG_LEVEL=INFO
 ```
@@ -174,10 +174,10 @@ LOG_LEVEL=INFO
 ## src/my_agent/__init__.py
 
 ```python
-"""my-agent — AI agent on Claude."""
-from my_agent.client import ClaudeClient
+"""my-agent — AI agent."""
+from my_agent.client import LLMClient
 
-__all__ = ["ClaudeClient"]
+__all__ = ["LLMClient"]
 __version__ = "0.1.0"
 ```
 
@@ -187,12 +187,12 @@ __version__ = "0.1.0"
 """Stub — replace with the actual client implementation."""
 from __future__ import annotations
 
-import anthropic
+from my_app import llm_client  # vendor-neutral wrapper
 
 
-class ClaudeClient:
+class LLMClient:
     def __init__(self) -> None:
-        self._client = anthropic.AsyncAnthropic()
+        self._client = llm_client.AsyncLLMClient()
 
     async def hello(self) -> str:
         return "hello"
@@ -202,12 +202,12 @@ class ClaudeClient:
 
 ```python
 import pytest
-from my_agent.client import ClaudeClient
+from my_agent.client import LLMClient
 
 
 @pytest.mark.asyncio
 async def test_hello() -> None:
-    client = ClaudeClient()
+    client = LLMClient()
     assert await client.hello() == "hello"
 ```
 

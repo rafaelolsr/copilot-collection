@@ -2,7 +2,7 @@
 
 > **Last validated**: 2026-04-27
 > **Confidence**: 0.92
-> **Source**: https://platform.claude.com/docs/en/docs/build-with-claude/tool-use
+> **Source**: https://platform.openai.com/docs/guides/function-calling
 
 ## When to use this pattern
 
@@ -19,7 +19,7 @@ import json
 import logging
 from typing import Any, Awaitable, Callable
 
-import anthropic
+from my_app import llm_client  # vendor-neutral wrapper
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ ToolHandler = Callable[[dict[str, Any]], Awaitable[str]]
 
 
 async def run_agent(
-    client: anthropic.AsyncAnthropic,
+    client: llm_client.AsyncLLMClient,
     *,
     model: str,
     system: str,
@@ -163,10 +163,10 @@ HANDLERS = {"get_weather": get_weather}
 ## Example usage
 
 ```python
-client = anthropic.AsyncAnthropic()
+client = llm_client.AsyncLLMClient()
 final_text, history = await run_agent(
     client,
-    model="claude-sonnet-4-6",
+    model="<provider>-balanced",
     system="You help users with weather questions.",
     user_message="What's the weather in Tokyo and Paris?",
     tools=TOOLS,
@@ -186,7 +186,7 @@ print(final_text)
 ## Done when
 
 - Loop terminates on `end_turn` OR `max_iterations` (never unbounded)
-- Every `tool_use` produces a matching `tool_result` (Anthropic API requirement)
+- Every `tool_use` produces a matching `tool_result` (API requirement (provider tool-use spec))
 - Tools are dispatched by name with typed args
 - Tool errors are caught per-tool, returned to the model as `is_error: true`
 - `stop_reason` other than `end_turn` / `tool_use` is logged but not crashed on
@@ -201,6 +201,6 @@ print(final_text)
 
 ## See also
 
-- `patterns/anthropic-client-async-wrapper.md` — pair with the wrapper for retries
+- `patterns/llm-client-async-wrapper.md` — pair with the wrapper for retries
 - `concepts/async-await-fundamentals.md` — `asyncio.gather` semantics
 - `anti-patterns.md` (items 12, 13)

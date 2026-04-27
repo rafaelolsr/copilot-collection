@@ -146,7 +146,7 @@ Examples:
 Respond ONLY with JSON: {{"coherence": <int>, "helpfulness": <int>, "consistency": <int>, "reason": "<text>"}}
 """
 
-    def __init__(self, judge_client, judge_model: str = "claude-opus-4-1"):
+    def __init__(self, judge_client, judge_model: str = "<provider>-flagship"):
         self._client = judge_client
         self._model = judge_model
 

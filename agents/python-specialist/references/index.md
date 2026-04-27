@@ -22,7 +22,7 @@
 
 | File | Topic |
 |---|---|
-| `patterns/anthropic-client-async-wrapper.md` | AsyncAnthropic + retry + timeout + cost hook |
+| `patterns/llm-client-async-wrapper.md` | Vendor-neutral async LLM client + retry + timeout + cost hook |
 | `patterns/tool-use-loop.md` | Bounded dispatch loop with max_iterations + per-tool error handling |
 | `patterns/instructor-structured-extraction.md` | instructor + Pydantic + repair-on-validation-error |
 | `patterns/streaming-responses.md` | Stream consumer with backpressure + cancellation |
@@ -40,7 +40,7 @@
 
 1. Start here (`index.md`) to identify relevant files for the task.
 2. For task type → file map:
-   - "write/refactor LLM client code" → `concepts/async-await-fundamentals.md` + `patterns/anthropic-client-async-wrapper.md`
+   - "write/refactor LLM client code" → `concepts/async-await-fundamentals.md` + `patterns/llm-client-async-wrapper.md`
    - "structured extraction" → `concepts/pydantic-v2-structured-output.md` + `patterns/instructor-structured-extraction.md`
    - "agent loop with tools" → `patterns/tool-use-loop.md`
    - "streaming output" → `patterns/streaming-responses.md`
@@ -51,7 +51,7 @@
 3. If any file has `last_validated` older than 90 days, use `web` tool to re-validate against:
    - https://docs.python.org/3/
    - https://docs.pydantic.dev/latest/
-   - https://platform.claude.com/docs/en/api/
+   - https://www.python-httpx.org/
    - https://tenacity.readthedocs.io/
    - https://python.useinstructor.com/
    - https://docs.astral.sh/uv/

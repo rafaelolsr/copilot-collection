@@ -24,7 +24,7 @@ def find(name: str) -> User | None: ...
 
 # Constants
 MAX_RETRIES: int = 5
-DEFAULT_MODEL: Final[str] = "claude-sonnet-4-6"
+DEFAULT_MODEL: Final[str] = "<provider>-balanced"
 ```
 
 ## Protocols — duck typing with structure
@@ -39,14 +39,14 @@ class LLMClient(Protocol):
 
 # Now any class with that method matches LLMClient,
 # without inheritance
-class AnthropicWrapper:
+class HttpxWrapper:
     async def create_message(self, prompt: str) -> str:
         ...
 
 def use_client(client: LLMClient) -> None:
     ...
 
-use_client(AnthropicWrapper())  # OK
+use_client(HttpxWrapper())  # OK
 ```
 
 This is how to write testable LLM code: depend on a `Protocol`, inject a real client in production and a mock in tests.
@@ -124,11 +124,11 @@ Bare `# type: ignore` should fail review. So should `Any`-typed parameters in ne
 from typing import Final, Literal
 
 MAX_TOKENS: Final = 4096  # cannot be reassigned
-Model = Literal["claude-sonnet-4-6", "claude-opus-4-7", "gpt-4.1"]
+Model = Literal["<provider>-balanced", "<provider>-flagship", "gpt-4.1"]
 
 def call(model: Model, prompt: str) -> str: ...
 
-call("claude-sonnet-4-6", "hi")  # OK
+call("<provider>-balanced", "hi")  # OK
 call("gpt-3.5", "hi")  # mypy error — not in Literal
 ```
 

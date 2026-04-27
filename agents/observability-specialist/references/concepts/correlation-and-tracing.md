@@ -6,7 +6,7 @@
 
 ## The problem
 
-A user request enters the front-end, calls 3 microservices, each calls the database, one calls Claude. When something fails, you need to know:
+A user request enters the front-end, calls 3 microservices, each calls the database, one calls an LLM. When something fails, you need to know:
 
 1. Which user request was this?
 2. Which downstream call failed?

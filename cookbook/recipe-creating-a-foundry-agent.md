@@ -31,7 +31,7 @@ mkdir sales-qa-agent && cd sales-qa-agent
 # Use the python-specialist agent or the python.instructions.md
 # to scaffold via Copilot CLI:
 copilot --agent=python-specialist \
-  --prompt "Set up a uv project called sales-qa-agent with anthropic, azure-ai-projects, azure-monitor-opentelemetry, pytest, ruff, mypy. src/ layout. Python 3.12."
+  --prompt "Set up a uv project called sales-qa-agent with azure-ai-projects, azure-monitor-opentelemetry, openai, pytest, ruff, mypy. src/ layout. Python 3.12."
 ```
 
 This produces:
@@ -354,7 +354,7 @@ async def test_sales_qa_smoke(case, real_judge_client, results_writer, run_metad
 cp .env.example .env
 # Fill: AZURE_AI_PROJECT_CONNECTION_STRING, FOUNDRY_MODEL_DEPLOYMENT,
 #       BLOB_CONNECTION_STRING, APPLICATIONINSIGHTS_CONNECTION_STRING,
-#       ANTHROPIC_JUDGE_API_KEY (or whichever judge you're using)
+#       LLM_JUDGE_API_KEY (the LLM provider key used for the judge model)
 
 # Quick smoke
 uv run python -c "
@@ -397,7 +397,7 @@ jobs:
         env:
           AZURE_AI_PROJECT_CONNECTION_STRING: ${{ secrets.AZURE_AI_PROJECT_CONNECTION_STRING }}
           FOUNDRY_MODEL_DEPLOYMENT: ${{ secrets.FOUNDRY_MODEL_DEPLOYMENT }}
-          ANTHROPIC_JUDGE_API_KEY: ${{ secrets.ANTHROPIC_JUDGE_API_KEY }}
+          LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
 ```
 
 ## What you have now
@@ -416,7 +416,7 @@ jobs:
    `[PREVIEW: ...]` in code comments. Don't ignore — track GA status.
 2. **First-run agent creation race**: if 2 processes start fresh, both
    create an agent. Add a lock or use idempotent `create_or_get` pattern.
-3. **Eval cost**: 30 cases × Claude Opus judge ≈ $0.50/run. PR-frequent =
+3. **Eval cost**: 30 cases × frontier judge model ≈ $0.50/run. PR-frequent =
    $5-10/day. Cap with budget guard.
 4. **Telemetry on local dev**: distro silently disables if connection
    string missing — don't waste time debugging missing traces locally.

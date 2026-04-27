@@ -39,14 +39,14 @@ import pytest
 
 
 @pytest.fixture
-def mock_anthropic_client() -> AsyncMock:
-    """A drop-in replacement for AsyncAnthropic for unit tests."""
+def mock_llm_client() -> AsyncMock:
+    """A drop-in replacement for AsyncLLMClient for unit tests."""
     client = AsyncMock()
     client.messages.create.return_value = MagicMock(
         id="msg_test",
         type="message",
         role="assistant",
-        model="claude-sonnet-4-6",
+        model="<provider>-balanced",
         content=[MagicMock(type="text", text="mocked response")],
         stop_reason="end_turn",
         usage=MagicMock(
@@ -60,13 +60,13 @@ def mock_anthropic_client() -> AsyncMock:
 
 
 @pytest.fixture(scope="session")
-def real_anthropic_client():
+def real_llm_client():
     """Real client for evals. Skips test if API key is missing."""
-    import anthropic
-    key = os.getenv("ANTHROPIC_API_KEY")
+    from my_app import llm_client  # vendor-neutral wrapper
+    key = os.getenv("LLM_API_KEY")
     if not key:
-        pytest.skip("ANTHROPIC_API_KEY not set; skipping live eval")
-    return anthropic.AsyncAnthropic(api_key=key, timeout=60.0)
+        pytest.skip("LLM_API_KEY not set; skipping live eval")
+    return llm_client.AsyncLLMClient(api_key=key, timeout=60.0)
 
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -81,23 +81,23 @@ import pytest
 from src.extractor import InvoiceExtractor
 
 @pytest.mark.asyncio
-async def test_extractor_calls_llm_once(mock_anthropic_client):
-    extractor = InvoiceExtractor(client=mock_anthropic_client)
+async def test_extractor_calls_llm_once(mock_llm_client):
+    extractor = InvoiceExtractor(client=mock_llm_client)
     await extractor.extract("Invoice INV-001 for $99")
-    assert mock_anthropic_client.messages.create.call_count == 1
+    assert mock_llm_client.messages.create.call_count == 1
 
 
 @pytest.mark.asyncio
-async def test_extractor_passes_correct_model(mock_anthropic_client):
-    extractor = InvoiceExtractor(client=mock_anthropic_client, model="claude-sonnet-4-6")
+async def test_extractor_passes_correct_model(mock_llm_client):
+    extractor = InvoiceExtractor(client=mock_llm_client, model="<provider>-balanced")
     await extractor.extract("test")
-    call_kwargs = mock_anthropic_client.messages.create.call_args.kwargs
-    assert call_kwargs["model"] == "claude-sonnet-4-6"
+    call_kwargs = mock_llm_client.messages.create.call_args.kwargs
+    assert call_kwargs["model"] == "<provider>-balanced"
 
 
 @pytest.mark.asyncio
-async def test_extractor_handles_empty_text(mock_anthropic_client):
-    extractor = InvoiceExtractor(client=mock_anthropic_client)
+async def test_extractor_handles_empty_text(mock_llm_client):
+    extractor = InvoiceExtractor(client=mock_llm_client)
     with pytest.raises(ValueError, match="empty"):
         await extractor.extract("")
 ```
@@ -117,8 +117,8 @@ CASES = load_jsonl(Path(__file__).parent / "golden_invoices.jsonl")
 @pytest.mark.eval
 @pytest.mark.asyncio
 @pytest.mark.parametrize("case", CASES, ids=lambda c: c["id"])
-async def test_extractor_eval(case, real_anthropic_client):
-    extractor = InvoiceExtractor(client=real_anthropic_client)
+async def test_extractor_eval(case, real_llm_client):
+    extractor = InvoiceExtractor(client=real_llm_client)
     result = await extractor.extract(case["input"])
 
     expected = case["expected"]
@@ -134,9 +134,9 @@ async def test_extractor_eval(case, real_anthropic_client):
 
 @pytest.mark.eval
 @pytest.mark.asyncio
-async def test_extractor_eval_pass_rate(real_anthropic_client):
+async def test_extractor_eval_pass_rate(real_llm_client):
     """Aggregate metric: ≥85% pass on the dataset."""
-    extractor = InvoiceExtractor(client=real_anthropic_client)
+    extractor = InvoiceExtractor(client=real_llm_client)
     total, passed = 0, 0
     for case in CASES:
         total += 1
@@ -194,8 +194,8 @@ from src.judge import score_with_judge  # uses a separate model to score
 
 @pytest.mark.eval
 @pytest.mark.asyncio
-async def test_summary_quality(case, real_anthropic_client, judge_client):
-    summary = await summarizer.summarize(case["text"], client=real_anthropic_client)
+async def test_summary_quality(case, real_llm_client, judge_client):
+    summary = await summarizer.summarize(case["text"], client=real_llm_client)
     score = await score_with_judge(
         client=judge_client,
         rubric="Rate 1-5 on accuracy and concision.",
@@ -225,5 +225,5 @@ async def test_summary_quality(case, real_anthropic_client, judge_client):
 ## See also
 
 - `concepts/testing-llm-code.md` — full taxonomy of test types
-- `patterns/anthropic-client-async-wrapper.md` — injectable client to mock
+- `patterns/llm-client-async-wrapper.md` — injectable client to mock
 - `anti-patterns.md` (items 18, 19)

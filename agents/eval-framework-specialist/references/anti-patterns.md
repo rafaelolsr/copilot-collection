@@ -12,7 +12,7 @@ Wrong:
 ```python
 async def has_required_field(answer):
     response = await judge_client.messages.create(
-        model="claude-opus-4-1",
+        model="<provider>-flagship",
         messages=[{"role": "user", "content": f"Does this answer mention 'revenue'? Answer YES or NO.\n\nAnswer: {answer}"}],
     )
     return "YES" in response.content[0].text
@@ -34,16 +34,16 @@ Related: `concepts/eval-types.md`
 
 Wrong:
 ```python
-candidate_model = "claude-sonnet-4-5"
-judge_model = "claude-sonnet-4-5"
+candidate_model = "<provider>-balanced"
+judge_model = "<provider>-balanced"
 ```
 
 Why: judge has self-bias. Underestimates failure modes the candidate model also has.
 
 Correct: use a stronger or different family.
 ```python
-candidate_model = "claude-sonnet-4-5"
-judge_model = "claude-opus-4-1"   # stronger
+candidate_model = "<provider>-balanced"
+judge_model = "<provider>-flagship"   # stronger
 # or
 judge_model = "gpt-4.1"           # different family
 ```
@@ -77,7 +77,7 @@ async def test_summary():
 Wrong:
 ```python
 def test_summary():
-    client = anthropic.AsyncAnthropic()              # real client
+    client = llm_client.AsyncLLMClient()              # real client
     summary = await summarize(client, text)
     assert summary  # passes; charges $$$ on every CI run
 ```
@@ -85,8 +85,8 @@ def test_summary():
 Correct:
 ```python
 @pytest.mark.eval                                    # opt-in marker
-async def test_summary_eval(real_anthropic_client):
-    summary = await summarize(real_anthropic_client, text)
+async def test_summary_eval(real_llm_client):
+    summary = await summarize(real_llm_client, text)
     assert summary
 ```
 
@@ -107,7 +107,7 @@ Why: which run? Which dataset version? Which prompt? Useless for trend analysis.
 
 Correct:
 ```jsonl
-{"run_id":"r-2026-04-26-abc","case_id":"qa-001","groundedness":4.5,"dataset_hash":"a3f9","prompt_hash":"b21e","model":"claude-sonnet-4-5","judge_model":"claude-opus-4-1"}
+{"run_id":"r-2026-04-26-abc","case_id":"qa-001","groundedness":4.5,"dataset_hash":"a3f9","prompt_hash":"b21e","model":"<provider>-balanced","judge_model":"<provider>-flagship"}
 ```
 
 Related: `concepts/regression-tracking.md`

@@ -39,14 +39,14 @@ The most expensive bug in async LLM code: calling a synchronous SDK or `time.sle
 ```python
 # WRONG — blocks the event loop
 async def bad():
-    response = anthropic.Anthropic().messages.create(...)  # sync client, sync call
+    response = llm_client.LLMClient().messages.create(...)  # sync client, sync call
     time.sleep(1)  # blocks every other coroutine
 ```
 
 ```python
 # CORRECT — async client, async sleep
 async def good():
-    client = anthropic.AsyncAnthropic()
+    client = llm_client.AsyncLLMClient()
     response = await client.messages.create(...)
     await asyncio.sleep(1)
 ```
@@ -85,7 +85,7 @@ async with asyncio.timeout(30):
 For SDKs that accept a timeout argument, prefer that — the SDK can clean up its own connection state:
 
 ```python
-client = anthropic.AsyncAnthropic(timeout=30.0)
+client = llm_client.AsyncLLMClient(timeout=30.0)
 ```
 
 ## Concurrent fan-out with bounded concurrency
@@ -106,7 +106,7 @@ async def process_batch(items: list[str], concurrency: int = 10) -> list[str]:
 ## Anti-patterns to flag
 
 - `time.sleep()` inside `async def` → use `await asyncio.sleep()`
-- Sync SDK call (`Anthropic().messages.create`) inside `async def` → use `AsyncAnthropic`
+- Sync SDK call (`SyncClient().messages.create`) inside `async def` → use `AsyncLLMClient`
 - `except asyncio.CancelledError: pass` → must re-raise
 - Mixing sync and async clients for the same provider in one app
 - No timeout on any LLM call
@@ -114,6 +114,6 @@ async def process_batch(items: list[str], concurrency: int = 10) -> list[str]:
 
 ## See also
 
-- `patterns/anthropic-client-async-wrapper.md` — production-grade async wrapper
+- `patterns/llm-client-async-wrapper.md` — production-grade async wrapper
 - `concepts/retry-patterns-llm.md` — retry strategies for transient errors
 - `anti-patterns.md` (items 6, 7, 8, 25, 26)

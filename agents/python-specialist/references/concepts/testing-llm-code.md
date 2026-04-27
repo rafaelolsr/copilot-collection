@@ -22,16 +22,16 @@ Use `unittest.mock` or `pytest-mock` to replace the LLM client:
 ```python
 import pytest
 from unittest.mock import AsyncMock
-from anthropic.types import Message
+from typing import Any  # vendor types replaced with dict
 
 @pytest.fixture
-def mock_anthropic_client() -> AsyncMock:
+def mock_llm_client() -> AsyncMock:
     client = AsyncMock()
     client.messages.create.return_value = Message(
         id="msg_test",
         type="message",
         role="assistant",
-        model="claude-sonnet-4-6",
+        model="<provider>-balanced",
         content=[{"type": "text", "text": "mocked response"}],
         stop_reason="end_turn",
         usage={"input_tokens": 10, "output_tokens": 5},
@@ -39,15 +39,15 @@ def mock_anthropic_client() -> AsyncMock:
     return client
 
 @pytest.mark.asyncio
-async def test_extracts_invoice(mock_anthropic_client):
-    extractor = InvoiceExtractor(client=mock_anthropic_client)
+async def test_extracts_invoice(mock_llm_client):
+    extractor = InvoiceExtractor(client=mock_llm_client)
     result = await extractor.extract("some text")
     assert result.amount > 0
-    mock_anthropic_client.messages.create.assert_called_once()
+    mock_llm_client.messages.create.assert_called_once()
 ```
 
 Key points:
-- Use **dependency injection** so the client is replaceable. Code that calls `Anthropic()` inline is untestable.
+- Use **dependency injection** so the client is replaceable. Code that calls `SyncLLMClient()` inline is untestable.
 - Return realistic mock objects (use the SDK's actual response types, not raw dicts) — catches type errors at test time.
 - One assertion per behavior. If the test fails, the message tells you what broke.
 
@@ -60,7 +60,7 @@ For higher-fidelity testing without paying every run, record real responses once
 @pytest.mark.vcr
 @pytest.mark.asyncio
 async def test_real_extraction():
-    client = anthropic.AsyncAnthropic()
+    client = llm_client.AsyncLLMClient()
     extractor = InvoiceExtractor(client=client)
     result = await extractor.extract("invoice for $99.99")
     assert result.amount == 99.99
@@ -101,7 +101,7 @@ async def llm_judge(question: str, answer: str) -> int:
     Rate the answer 1-5 on accuracy and helpfulness. Return only the number.
     """
     response = await judge_client.messages.create(
-        model="claude-opus-4-7",
+        model="<provider>-flagship",
         messages=[{"role": "user", "content": judge_prompt}],
         max_tokens=5,
     )
@@ -143,5 +143,5 @@ pytest -m "not eval and not integration"  # default CI
 ## See also
 
 - `patterns/eval-with-pytest.md` — full eval harness
-- `patterns/anthropic-client-async-wrapper.md` — injectable client
+- `patterns/llm-client-async-wrapper.md` — injectable client
 - `anti-patterns.md` (items 18, 19)

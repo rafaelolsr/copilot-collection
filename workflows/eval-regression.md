@@ -149,7 +149,7 @@ To enable this workflow in a project:
 - [ ] Pytest markers `eval` and `smoke` defined in `pyproject.toml`
 - [ ] Smoke dataset exists at `evals/dataset/<agent>_smoke.jsonl` (≥20 cases)
 - [ ] Eval results stored somewhere queryable (JSONL files OR Fabric Delta)
-- [ ] Anthropic / Azure / OpenAI judge API key in repo secrets
+- [ ] LLM judge API key in repo secrets (`LLM_JUDGE_API_KEY` or vendor-specific)
 - [ ] Branch protection rule (later) — once trusted, require `eval-regression` status
 
 ## Related

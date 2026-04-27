@@ -115,11 +115,11 @@ Common minimal combos:
 ```yaml
 # CORRECT — referenced from secrets
 env:
-  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
 
 # WRONG — value embedded
 env:
-  ANTHROPIC_API_KEY: sk-ant-...
+  LLM_API_KEY: sk-live-redacted-example
 ```
 
 NEVER use `${{ secrets.X }}` in `run:` directly — pass via `env:` so it

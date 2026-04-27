@@ -43,7 +43,7 @@
       "name": "python-specialist",
       "description": "Python for AI/LLM systems — async clients, structured output, retries, tool-use loops, evals",
       "path": "agents/python-specialist/python-specialist.agent.md",
-      "tags": ["python", "ai-agents", "anthropic", "openai", "pydantic", "instructor"]
+      "tags": ["python", "ai-agents", "llm", "pydantic", "instructor"]
     },
     {
       "name": "observability-specialist",

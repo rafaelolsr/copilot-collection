@@ -2,7 +2,7 @@
 
 > **Last validated**: 2026-04-27
 > **Confidence**: 0.90
-> **Source**: https://platform.claude.com/docs/en/docs/build-with-claude/streaming
+> **Source**: https://platform.openai.com/docs/api-reference/streaming
 
 ## When to use this pattern
 
@@ -11,7 +11,7 @@ You're building a UI that shows tokens as they arrive (Chainlit, FastAPI SSE, we
 ## Implementation
 
 ```python
-"""Stream tokens from Claude with cancellation and backpressure."""
+"""Stream tokens from the LLM with cancellation and backpressure."""
 from __future__ import annotations
 
 import asyncio
@@ -19,13 +19,13 @@ import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-import anthropic
+from my_app import llm_client  # vendor-neutral wrapper
 
 logger = logging.getLogger(__name__)
 
 
 async def stream_response(
-    client: anthropic.AsyncAnthropic,
+    client: llm_client.AsyncLLMClient,
     *,
     model: str,
     system: str,
@@ -88,14 +88,14 @@ async def consume(queue: asyncio.Queue[str | None]) -> str:
 
 
 async def main() -> None:
-    client = anthropic.AsyncAnthropic()
+    client = llm_client.AsyncLLMClient()
     queue: asyncio.Queue[str | None] = asyncio.Queue(maxsize=64)
 
     producer = asyncio.create_task(
         stream_to_queue(
             stream_response(
                 client,
-                model="claude-sonnet-4-6",
+                model="<provider>-balanced",
                 system="You are concise.",
                 user_message="Tell me a story",
             ),
@@ -115,7 +115,7 @@ Streaming responses must respond to user cancellation (browser tab closed, `Ctrl
 
 ```python
 async def with_cancellation(consumer_signal: asyncio.Event) -> None:
-    client = anthropic.AsyncAnthropic()
+    client = llm_client.AsyncLLMClient()
 
     async def watch_for_cancel() -> None:
         await consumer_signal.wait()
@@ -182,5 +182,5 @@ For agentic + streaming, simplest pattern: stream until `stop_reason=tool_use`, 
 ## See also
 
 - `concepts/async-await-fundamentals.md` — task / cancellation semantics
-- `patterns/anthropic-client-async-wrapper.md` — non-streaming alternative
+- `patterns/llm-client-async-wrapper.md` — non-streaming alternative
 - `anti-patterns.md` (items 7, 25, 26)

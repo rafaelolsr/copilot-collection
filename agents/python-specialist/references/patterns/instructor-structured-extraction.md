@@ -17,7 +17,7 @@ from __future__ import annotations
 import logging
 from typing import TypeVar
 
-import anthropic
+from my_app import llm_client  # vendor-neutral wrapper
 import instructor
 from pydantic import BaseModel, Field, ValidationError
 
@@ -44,19 +44,19 @@ class Invoice(BaseModel):
 # ---------- Extractor ----------
 
 class StructuredExtractor:
-    """Extract Pydantic-validated data from text via Claude."""
+    """Extract Pydantic-validated data from text via the configured LLM."""
 
     def __init__(
         self,
-        client: anthropic.AsyncAnthropic | None = None,
+        client: llm_client.AsyncLLMClient | None = None,
         *,
-        model: str = "claude-sonnet-4-6",
+        model: str = "<provider>-balanced",
         max_retries: int = 3,
     ) -> None:
-        raw = client or anthropic.AsyncAnthropic()
-        # instructor.from_anthropic returns an instrumented client that
+        raw = client or llm_client.AsyncLLMClient()
+        # instructor.from_openai returns an instrumented client that
         # accepts response_model= and handles repair loops internally.
-        self._client = instructor.from_anthropic(raw, mode=instructor.Mode.ANTHROPIC_TOOLS)
+        self._client = instructor.from_openai(raw, mode=instructor.Mode.TOOLS)
         self._model = model
         self._max_retries = max_retries
 
@@ -123,9 +123,9 @@ amount: float = invoice.total  # statically and runtime-typed
 
 | Argument | Default | When to override |
 |---|---|---|
-| `model` | `claude-sonnet-4-6` | Use opus for complex schemas; haiku for simple |
+| `model` | `<provider>-balanced` | Use opus for complex schemas; haiku for simple |
 | `max_retries` | `3` | Raise to 5 for high-stakes extraction; lower to 1 if you'd rather fail fast |
-| `mode` | `ANTHROPIC_TOOLS` | Use `ANTHROPIC_JSON` if you don't want tool-shaped output |
+| `mode` | `TOOLS` | Use `JSON` if you don't want tool-shaped output |
 
 ## Validators help the repair loop
 
@@ -169,5 +169,5 @@ When the LLM returns `"April 15, 2026"`, the error message tells it exactly what
 ## See also
 
 - `concepts/pydantic-v2-structured-output.md` — schema design fundamentals
-- `patterns/anthropic-client-async-wrapper.md` — pair with the wrapper for cost tracking
+- `patterns/llm-client-async-wrapper.md` — pair with the wrapper for cost tracking
 - `anti-patterns.md` (items 14, 15)

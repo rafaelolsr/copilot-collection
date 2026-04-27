@@ -104,7 +104,7 @@ Most LLM SDKs accept a JSON schema for structured output. Generate it from your 
 
 ```python
 schema = Invoice.model_json_schema()
-# Pass schema to the LLM (e.g., Anthropic tool, OpenAI response_format)
+# Pass schema to the LLM (e.g., provider tool schema, OpenAI response_format)
 ```
 
 ## Serialization

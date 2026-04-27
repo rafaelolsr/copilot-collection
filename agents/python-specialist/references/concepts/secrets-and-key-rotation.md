@@ -12,7 +12,7 @@ API keys NEVER appear in source code. Not in defaults, not in tests, not in fall
 ```python
 import os
 
-api_key = os.environ["ANTHROPIC_API_KEY"]  # raises KeyError if missing
+api_key = os.environ["LLM_API_KEY"]  # raises KeyError if missing
 ```
 
 `os.environ[...]` is preferred over `os.getenv("KEY")` for required keys — it fails fast at startup instead of at first API call.
@@ -26,7 +26,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import SecretStr
 
 class Settings(BaseSettings):
-    anthropic_api_key: SecretStr
+    llm_api_key: SecretStr
     openai_api_key: SecretStr | None = None
     azure_ai_project_connection_string: SecretStr
     log_level: str = "INFO"
@@ -40,7 +40,7 @@ class Settings(BaseSettings):
 settings = Settings()  # raises ValidationError on missing required fields
 
 # Use:
-client = anthropic.AsyncAnthropic(api_key=settings.anthropic_api_key.get_secret_value())
+client = llm_client.AsyncLLMClient(api_key=settings.llm_api_key.get_secret_value())
 ```
 
 `SecretStr` prevents the value from appearing in logs / repr / error messages by accident.
@@ -51,7 +51,7 @@ Standard layout for local dev:
 
 ```
 # .env (gitignored!)
-ANTHROPIC_API_KEY=sk-ant-...
+LLM_API_KEY=sk-live-redacted
 OPENAI_API_KEY=sk-...
 AZURE_AI_PROJECT_CONNECTION_STRING=...
 LOG_LEVEL=DEBUG
@@ -59,7 +59,7 @@ LOG_LEVEL=DEBUG
 
 ```
 # .env.example (committed — placeholder values)
-ANTHROPIC_API_KEY=
+LLM_API_KEY=
 OPENAI_API_KEY=
 AZURE_AI_PROJECT_CONNECTION_STRING=
 LOG_LEVEL=INFO

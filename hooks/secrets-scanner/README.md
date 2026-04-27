@@ -9,8 +9,7 @@ Currently 22 pattern categories, including:
 
 | Category | Examples |
 |---|---|
-| Anthropic API keys | `sk-ant-*` (40+ char tail) |
-| OpenAI API keys | `sk-proj-*`, legacy `sk-*` |
+| LLM provider API keys | `sk-ant-*`, `sk-proj-*`, legacy `sk-*` (40+ char tail) |
 | GitHub tokens | `ghp_*`, `gho_*`, `ghu_*`, `ghs_*`, `ghr_*`, `github_pat_*` |
 | AWS keys | `AKIA*`, `ASIA*`, `aws_secret_access_key=...` |
 | Azure storage | `AccountKey=...`, `DefaultEndpointsProtocol=https;AccountName=...` |
@@ -47,7 +46,7 @@ hooks/secrets-scanner/
 ## Sample output (with findings)
 
 ```
-  [CRITICAL] Anthropic API key
+  [CRITICAL] LLM provider API key (sk-ant prefix)
       src/agent/client.py:42
       api_key = "sk-ant-abc123def456..."
 

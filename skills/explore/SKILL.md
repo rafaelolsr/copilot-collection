@@ -166,7 +166,7 @@ Capture key dependencies that signal the architecture:
 - HTTP client (httpx, requests, axios)
 - DB / ORM (sqlalchemy, prisma, mongoose, deltalake)
 - Web framework (fastapi, express, next, django)
-- LLM SDK (anthropic, openai, azure-ai-projects)
+- LLM SDK (azure-ai-projects, openai, vendor-specific clients)
 - Test runner (pytest, jest, vitest)
 - Lint / format (ruff, eslint, prettier)
 
@@ -285,7 +285,7 @@ npm run build
 
 ## Key dependencies
 - `fastapi` 0.115 — web framework
-- `anthropic` 0.40 — LLM SDK
+- `openai` 1.50 — LLM SDK
 - `pydantic` 2.10 — validation
 - `pytest` 8.3 — tests
 
@@ -322,7 +322,7 @@ modules, to storage. Be honest about uncertainty.>
 
 - [ ] How is `src/legacy/` related to `src/agents/`? (Looks pre-refactor)
 - [ ] Is the Lakehouse path in `infra/lakehouse.bicep` deployed?
-- [ ] What's the actual prod model? README says GPT-4 but config has Claude.
+- [ ] What's the actual prod model? README says GPT-4 but config points elsewhere.
 ```
 
 ## Anti-patterns to flag (in YOUR exploration)

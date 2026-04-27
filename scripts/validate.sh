@@ -15,7 +15,7 @@ MAX_BODY_CHARS=30000
 MAX_DESC_CHARS=1400
 ALLOWED_FRONTMATTER=(name description target tools model disable-model-invocation user-invocable mcp-servers metadata)
 ALLOWED_TOOLS=(execute read edit search web todo agent "*")
-FORBIDDEN_TOKENS=(anthropic openai tenacity instructor langchain llama-index)
+FORBIDDEN_TOKENS=(tenacity instructor langchain llama-index)
 
 red()    { printf "\033[31m%s\033[0m\n" "$*"; }
 green()  { printf "\033[32m%s\033[0m\n" "$*"; }

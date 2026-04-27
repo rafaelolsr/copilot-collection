@@ -145,8 +145,8 @@ CLI or VS Code Copilot.
 ## Anti-substitution rule (critical)
 
 The generator MUST fetch every URL in `sources` BEFORE writing any KB file.
-Generic Python/AI content (Anthropic SDK, tenacity, instructor, langchain)
-must NOT appear in domain-specific KBs unless those names are explicitly in
+Generic Python/AI content (LLM SDKs, tenacity, instructor, langchain) must
+NOT appear in domain-specific KBs unless those names are explicitly in
 `versions` or `sources`.
 
 CI's `validate.sh` greps for forbidden tokens. PRs with substituted content

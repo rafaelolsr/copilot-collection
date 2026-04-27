@@ -30,7 +30,7 @@ Findings:
 
 For each `async def` function:
 - Does it call `time.sleep()`? → `WARN`, replace with `await asyncio.sleep()`
-- Does it call a sync SDK (`Anthropic()` not `AsyncAnthropic()`)? → `WARN`, fix or wrap with `asyncio.to_thread`
+- Does it call a sync SDK (`SyncLLMClient()` not `AsyncLLMClient()`)? → `WARN`, fix or wrap with `asyncio.to_thread`
 - Does it `except asyncio.CancelledError: pass` or swallow? → `WARN`, must re-raise
 - Does it have an unbounded `asyncio.gather(...)` over user input? → `WARN`, bound with semaphore
 
@@ -52,7 +52,7 @@ For each LLM client construction:
 - Is `timeout=` set? Default (no timeout) → `WARN`
 - For streaming: is the stream wrapped in `asyncio.timeout(...)`? → `WARN` if not
 
-→ See `patterns/anthropic-client-async-wrapper.md`, `patterns/streaming-responses.md`
+→ See `patterns/llm-client-async-wrapper.md`, `patterns/streaming-responses.md`
 
 ### 5. Tool-use loops — HIGH
 
@@ -126,8 +126,8 @@ findings:
     rule: hardcoded-api-key
     message: API key literal in source. Replace with os.environ["..."].
     fix: |
-      - api_key = "sk-ant-..."
-      + api_key = os.environ["ANTHROPIC_API_KEY"]
+      - api_key = "sk-live-redacted"
+      + api_key = os.environ["LLM_API_KEY"]
     related: concepts/secrets-and-key-rotation.md
 
   - severity: WARN

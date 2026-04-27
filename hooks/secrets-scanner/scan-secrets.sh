@@ -12,8 +12,7 @@
 #   SECRETS_SCAN_EXCLUDE       exclude glob (default: vendor/test fixtures)
 #
 # Patterns scanned:
-#   - Anthropic API keys (sk-ant-*)
-#   - OpenAI API keys (sk-proj-*, sk-* legacy)
+#   - LLM provider API keys (sk-ant-*, sk-proj-*, sk-* legacy)
 #   - GitHub PATs (ghp_*, gho_*, ghu_*, ghs_*, ghr_*)
 #   - AWS access keys (AKIA*, ASIA*) + secret access keys
 #   - Azure connection strings, storage account keys
@@ -43,9 +42,9 @@ get_changed_files() {
 
 # Patterns: regex | description | severity
 PATTERNS=(
-    'sk-ant-[a-zA-Z0-9_-]{40,}|Anthropic API key|CRITICAL'
-    'sk-proj-[a-zA-Z0-9_-]{40,}|OpenAI project API key|CRITICAL'
-    '(^|[^a-zA-Z0-9])sk-[a-zA-Z0-9]{40,}|Possible OpenAI legacy key|HIGH'
+    'sk-ant-[a-zA-Z0-9_-]{40,}|LLM provider API key (sk-ant prefix)|CRITICAL'
+    'sk-proj-[a-zA-Z0-9_-]{40,}|LLM provider project API key (sk-proj prefix)|CRITICAL'
+    '(^|[^a-zA-Z0-9])sk-[a-zA-Z0-9]{40,}|Possible LLM provider legacy key (sk- prefix)|HIGH'
     'ghp_[a-zA-Z0-9]{36,}|GitHub Personal Access Token (classic)|CRITICAL'
     'gho_[a-zA-Z0-9]{36,}|GitHub OAuth token|CRITICAL'
     'ghu_[a-zA-Z0-9]{36,}|GitHub user-to-server token|CRITICAL'

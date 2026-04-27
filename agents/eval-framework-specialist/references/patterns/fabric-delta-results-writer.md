@@ -25,8 +25,8 @@ Two tables — runs (one row per run) and case-results (many rows per run):
 | `agent_target` | string | e.g., `advisor-v2` |
 | `prompt_hash` | string | sha256[:12] of the prompt content |
 | `prompt_version` | string | e.g., `v2.1` |
-| `model_under_test` | string | e.g., `claude-sonnet-4-5` |
-| `judge_model` | string | e.g., `claude-opus-4-1` |
+| `model_under_test` | string | e.g., `<provider>-balanced` |
+| `judge_model` | string | e.g., `<provider>-flagship` |
 | `git_sha` | string | Source commit |
 | `cost_usd` | double | Total dollars spent |
 | `total_cases` | long | |

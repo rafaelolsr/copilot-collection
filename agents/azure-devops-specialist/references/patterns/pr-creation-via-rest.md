@@ -210,7 +210,7 @@ async def main():
             title="Bump dependencies — automated",
             description=(
                 "## Summary\n\n"
-                "- bump anthropic 0.39.0 → 0.40.1\n"
+                "- bump openai 1.49.0 → 1.50.0\n"
                 "- bump pydantic 2.9.0 → 2.10.0\n"
                 "\n"
                 "## Verification\n\n"

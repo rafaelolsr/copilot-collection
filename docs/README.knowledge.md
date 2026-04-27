@@ -123,8 +123,8 @@ layouts during sync.
 - **Anti-patterns without Wrong/Correct pairs** — be concrete; readers
   shouldn't infer the fix.
 - **Cross-references to nonexistent files** — `validate.sh` catches this.
-- **Generic content (Anthropic SDK in a Foundry KB)** — substitution kills
-  the KB's value. Domain-specific or omit.
+- **Generic content (random LLM SDK examples in a Foundry KB)** — substitution
+  kills the KB's value. Domain-specific or omit.
 - **Confidence inflation** — claim 0.99 confidence on PREVIEW features.
   Be honest; lower confidence = signal for re-validation priority.
 

@@ -210,8 +210,8 @@ copilot --help
 **4. Optional — set default model and permissions:**
 
 ```bash
-# Default model (claude-sonnet-4-5, gpt-4.1, etc.)
-copilot config set model claude-sonnet-4-5
+# Default model — pick whatever your CLI build supports (gpt-4.1, gpt-4o, etc.)
+copilot config set model gpt-4.1
 
 # Allow tool use without prompting per command
 copilot config set tool-approval auto-for-allowed
@@ -392,7 +392,7 @@ When Copilot edits any file matching this pattern, the instruction loads into co
 
 ```bash
 # Edit a Python file with Copilot — it should follow uv + ruff + mypy strict
-copilot --prompt "create a new module src/my_app/client.py with an async Anthropic wrapper"
+copilot --prompt "create a new module src/my_app/client.py with an async LLM client wrapper"
 ```
 
 The generated code should use `uv` not `pip`, type hints, async/await, no hardcoded keys.
@@ -432,8 +432,8 @@ safe-outputs:
 **3. Add required secrets** to your repo (Settings → Secrets and variables → Actions):
 
 ```
-ANTHROPIC_API_KEY            # for the agent under test
-ANTHROPIC_JUDGE_API_KEY      # different key for the judge model
+LLM_API_KEY                  # for the agent under test
+LLM_JUDGE_API_KEY            # different key for the judge model
 AZURE_AI_PROJECT_CONNECTION_STRING   # for Foundry-based agents
 ```
 

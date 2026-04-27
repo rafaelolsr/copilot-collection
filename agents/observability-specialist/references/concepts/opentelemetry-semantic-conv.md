@@ -76,8 +76,8 @@ messaging.destination.name  = "orders-topic"
 OTel has GenAI semantic conventions (currently experimental, stabilizing through 2026):
 
 ```
-gen_ai.system              = "anthropic"
-gen_ai.request.model       = "claude-sonnet-4-5"
+gen_ai.system              = "<provider>"
+gen_ai.request.model       = "<provider>-balanced"
 gen_ai.usage.input_tokens  = 1024
 gen_ai.usage.output_tokens = 256
 gen_ai.response.finish_reasons = ["end_turn"]

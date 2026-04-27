@@ -46,21 +46,21 @@ import pytest
 @pytest.fixture(scope="session")
 def real_judge_client():
     """Live judge client. Skips test if API key missing."""
-    import anthropic
-    key = os.getenv("ANTHROPIC_JUDGE_API_KEY") or os.getenv("ANTHROPIC_API_KEY")
+    from my_app import llm_client  # vendor-neutral wrapper
+    key = os.getenv("LLM_JUDGE_API_KEY") or os.getenv("LLM_API_KEY")
     if not key:
         pytest.skip("Judge API key not set; skipping live eval")
-    return anthropic.AsyncAnthropic(api_key=key, timeout=60.0)
+    return llm_client.AsyncLLMClient(api_key=key, timeout=60.0)
 
 
 @pytest.fixture(scope="session")
 def real_target_client():
     """Live client for the agent under test."""
-    import anthropic
-    key = os.getenv("ANTHROPIC_API_KEY")
+    from my_app import llm_client  # vendor-neutral wrapper
+    key = os.getenv("LLM_API_KEY")
     if not key:
         pytest.skip("Target API key not set")
-    return anthropic.AsyncAnthropic(api_key=key, timeout=60.0)
+    return llm_client.AsyncLLMClient(api_key=key, timeout=60.0)
 
 
 @pytest.fixture
@@ -247,8 +247,8 @@ jobs:
       - run: uv sync
       - run: uv run pytest -m "eval and smoke" --tb=short
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          ANTHROPIC_JUDGE_API_KEY: ${{ secrets.ANTHROPIC_JUDGE_API_KEY }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
       - if: always()
         uses: actions/upload-artifact@v4
         with:

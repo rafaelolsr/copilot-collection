@@ -23,7 +23,7 @@ Mandatory fields:
 | `agent_or_target` | What was evaluated |
 | `prompt_hash` | Hash of the prompt(s) tested |
 | `prompt_version` | Human label (`v2.1`) |
-| `model_under_test` | `claude-sonnet-4-5`, etc. |
+| `model_under_test` | `<provider>-balanced`, etc. |
 | `judge_model` | Which judge (if AI-assisted) |
 | `git_sha` | Source code commit |
 | `cost_usd` | What this run cost |

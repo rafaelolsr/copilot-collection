@@ -16,7 +16,7 @@ from dataclasses import dataclass
 from typing import Any
 import json
 
-import anthropic
+from my_app import llm_client  # vendor-neutral wrapper
 from pydantic import BaseModel, Field, ValidationError
 
 
@@ -64,9 +64,9 @@ Respond ONLY with this JSON:
 
     def __init__(
         self,
-        judge_client: anthropic.AsyncAnthropic,
+        judge_client: llm_client.AsyncLLMClient,
         *,
-        judge_model: str = "claude-opus-4-1",
+        judge_model: str = "<provider>-flagship",
         max_retries: int = 1,
     ) -> None:
         self._client = judge_client
@@ -113,7 +113,7 @@ Respond ONLY with this JSON:
 
 Key choices:
 - `temperature=0` for stability
-- Strong judge model (`claude-opus-4-1`)
+- Strong judge model (`<provider>-flagship`)
 - Pydantic validation on judge output
 - Returns `groundedness_judge_tokens` for cost tracking
 - Bounded retry on parse failure (1 retry max — beyond that the prompt is wrong)
@@ -124,7 +124,7 @@ Key choices:
 class PairwisePreferenceEvaluator:
     """Compare two candidate answers; return which is better."""
 
-    def __init__(self, judge_client, judge_model: str = "claude-opus-4-1"):
+    def __init__(self, judge_client, judge_model: str = "<provider>-flagship"):
         self._client = judge_client
         self._model = judge_model
 

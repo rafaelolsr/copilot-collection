@@ -43,7 +43,7 @@ For breadth, use an LLM to generate. ALWAYS curate by hand — LLM-generated cas
 ```python
 import json
 import asyncio
-import anthropic
+from my_app import llm_client  # vendor-neutral wrapper
 
 GENERATION_PROMPT = """You are generating adversarial test cases for an AI agent.
 
@@ -69,11 +69,11 @@ async def generate_failure_modes(
     agent_description: str,
     category: str,
     n: int = 5,
-    client: anthropic.AsyncAnthropic | None = None,
+    client: llm_client.AsyncLLMClient | None = None,
 ) -> list[dict]:
-    client = client or anthropic.AsyncAnthropic()
+    client = client or llm_client.AsyncLLMClient()
     response = await client.messages.create(
-        model="claude-sonnet-4-5",
+        model="<provider>-balanced",
         max_tokens=2000,
         messages=[{
             "role": "user",
@@ -165,8 +165,8 @@ When upgrading the candidate model:
 
 ```python
 # pseudo
-old_failures = run_failure_eval(model="claude-sonnet-4")
-new_failures = run_failure_eval(model="claude-sonnet-4-5")
+old_failures = run_failure_eval(model="<provider>-balanced")
+new_failures = run_failure_eval(model="<provider>-balanced")
 
 regressions = old_failures.passed_ids - new_failures.passed_ids
 gains = new_failures.passed_ids - old_failures.passed_ids
