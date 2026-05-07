@@ -1,0 +1,15 @@
+{
+  "name": "eval-framework-specialist",
+  "description": "LLM evaluation framework — deterministic + AI-assisted + agentic metrics, golden datasets, regression tracking, Azure AI Evaluation SDK.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": ["llm-evaluation", "pytest", "azure-ai-evaluation", "regression-testing"],
+  "tags": ["llm-evaluation", "pytest", "azure-ai-evaluation", "regression-testing"],
+  "agents": "."
+}

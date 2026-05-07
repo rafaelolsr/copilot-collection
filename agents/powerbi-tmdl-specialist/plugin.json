@@ -1,0 +1,15 @@
+{
+  "name": "powerbi-tmdl-specialist",
+  "description": "Power BI / TMDL / DAX — PBIP projects, DAX evaluation context, time intelligence, RLS, XMLA deployment.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": ["power-bi", "tmdl", "dax", "pbip", "xmla", "rls"],
+  "tags": ["power-bi", "tmdl", "dax", "pbip", "xmla", "rls"],
+  "agents": "."
+}

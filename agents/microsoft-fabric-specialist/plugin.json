@@ -1,0 +1,15 @@
+{
+  "name": "microsoft-fabric-specialist",
+  "description": "Microsoft Fabric — Lakehouse, Warehouse, OneLake, Delta tables, semantic-model REST API, Fabric SQL endpoint, Direct Lake.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": ["microsoft-fabric", "lakehouse", "warehouse", "onelake", "delta", "directlake"],
+  "tags": ["microsoft-fabric", "lakehouse", "warehouse", "onelake", "delta", "directlake"],
+  "agents": "."
+}

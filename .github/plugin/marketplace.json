@@ -1,0 +1,166 @@
+{
+  "name": "copilot-collection",
+  "owner": {
+    "name": "Rafael (RafaelOLSR)",
+    "email": "rafaelolsr@users.noreply.github.com"
+  },
+  "metadata": {
+    "description": "Curated GitHub Copilot agents, skills, and hooks for Microsoft Foundry, Fabric, Power BI/TMDL, Azure DevOps, and AI/LLM systems. Knowledge-base-backed with 90-day re-validation cycle.",
+    "version": "0.2.0"
+  },
+  "plugins": [
+    {
+      "name": "ms-foundry-specialist",
+      "description": "Microsoft Foundry specialist — Foundry Agent Service, Foundry IQ, azure-ai-projects SDKs, Microsoft Agent Framework, OpenTelemetry tracing.",
+      "version": "0.1.0",
+      "source": "agents/ms-foundry-specialist",
+      "license": "MIT",
+      "category": "agents",
+      "tags": ["microsoft-foundry", "azure", "ai-agents", "foundry-iq", "agent-framework", "opentelemetry"]
+    },
+    {
+      "name": "python-specialist",
+      "description": "Python for AI/LLM systems — async clients, Pydantic + instructor, structured output, retries, tool-use loops, evals.",
+      "version": "0.1.0",
+      "source": "agents/python-specialist",
+      "license": "MIT",
+      "category": "agents",
+      "tags": ["python", "ai-agents", "llm", "pydantic", "instructor"]
+    },
+    {
+      "name": "observability-specialist",
+      "description": "Observability — KQL, Application Insights schema, OpenTelemetry, sampling, dashboards.",
+      "version": "0.1.0",
+      "source": "agents/observability-specialist",
+      "license": "MIT",
+      "category": "agents",
+      "tags": ["observability", "kql", "application-insights", "opentelemetry", "azure-monitor"]
+    },
+    {
+      "name": "powerbi-tmdl-specialist",
+      "description": "Power BI / TMDL / DAX — PBIP projects, DAX evaluation context, time intelligence, RLS, XMLA deployment.",
+      "version": "0.1.0",
+      "source": "agents/powerbi-tmdl-specialist",
+      "license": "MIT",
+      "category": "agents",
+      "tags": ["power-bi", "tmdl", "dax", "pbip", "xmla", "rls"]
+    },
+    {
+      "name": "eval-framework-specialist",
+      "description": "LLM evaluation framework — deterministic + AI-assisted + agentic metrics, golden datasets, regression tracking, Azure AI Evaluation SDK.",
+      "version": "0.1.0",
+      "source": "agents/eval-framework-specialist",
+      "license": "MIT",
+      "category": "agents",
+      "tags": ["llm-evaluation", "pytest", "azure-ai-evaluation", "regression-testing"]
+    },
+    {
+      "name": "microsoft-fabric-specialist",
+      "description": "Microsoft Fabric — Lakehouse, Warehouse, OneLake, Delta tables, semantic-model REST API, Fabric SQL endpoint, Direct Lake.",
+      "version": "0.1.0",
+      "source": "agents/microsoft-fabric-specialist",
+      "license": "MIT",
+      "category": "agents",
+      "tags": ["microsoft-fabric", "lakehouse", "warehouse", "onelake", "delta", "directlake"]
+    },
+    {
+      "name": "azure-devops-specialist",
+      "description": "Azure DevOps — Pipeline YAML, REST API, branch policies, workload identity federation, PR automation.",
+      "version": "0.1.0",
+      "source": "agents/azure-devops-specialist",
+      "license": "MIT",
+      "category": "agents",
+      "tags": ["azure-devops", "pipelines", "wif", "branch-policies", "rest-api"]
+    },
+    {
+      "name": "accessibility-expert",
+      "description": "Accessibility / WCAG 2.1 & 2.2 — audits, keyboard navigation, semantic HTML, ARIA, focus management, screen reader compatibility, color contrast.",
+      "version": "0.1.0",
+      "source": "agents/accessibility-expert",
+      "license": "MIT",
+      "category": "agents",
+      "tags": ["accessibility", "wcag", "a11y", "aria", "keyboard-navigation", "screen-reader"]
+    },
+    {
+      "name": "simplify",
+      "description": "Refactors recently-changed code: removes duplication, dead code, and premature abstraction.",
+      "version": "0.1.0",
+      "source": "skills/simplify",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["refactoring", "code-quality", "review"]
+    },
+    {
+      "name": "ultrathink",
+      "description": "Forces structured deliberation for hard architectural decisions with tradeoff matrices.",
+      "version": "0.1.0",
+      "source": "skills/ultrathink",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["architecture", "decision-making", "deliberation"]
+    },
+    {
+      "name": "code-review",
+      "description": "Systematic 8-category PR review (security → correctness → error handling → types → performance → testing → observability → maintainability).",
+      "version": "0.1.0",
+      "source": "skills/code-review",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["code-review", "quality", "security"]
+    },
+    {
+      "name": "kb-revalidate",
+      "description": "Re-validates knowledge-base files older than 90 days against authoritative sources.",
+      "version": "0.1.0",
+      "source": "skills/kb-revalidate",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["knowledge-base", "validation", "documentation"]
+    },
+    {
+      "name": "agentic-eval",
+      "description": "Designs eval suites for an agent — deterministic checks, AI-assisted scorers, agentic metrics, golden datasets.",
+      "version": "0.1.0",
+      "source": "skills/agentic-eval",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["llm-evaluation", "testing", "regression"]
+    },
+    {
+      "name": "adr-write",
+      "description": "Authors an Architectural Decision Record (ADR): context, options, decision, consequences, and tradeoff analysis.",
+      "version": "0.1.0",
+      "source": "skills/adr-write",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["adr", "architecture", "documentation", "decision-records"]
+    },
+    {
+      "name": "explore",
+      "description": "Explores an unfamiliar codebase to build a mental model: entry points, modules, build/test commands, dependencies, conventions.",
+      "version": "0.1.0",
+      "source": "skills/explore",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["onboarding", "code-exploration", "codebase-map"]
+    },
+    {
+      "name": "make-plan",
+      "description": "Creates a detailed phased implementation plan with concrete steps, files to touch, tests to write, and definition-of-done.",
+      "version": "0.1.0",
+      "source": "skills/make-plan",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["planning", "decomposition", "phased-delivery"]
+    },
+    {
+      "name": "spec-driven",
+      "description": "Captures a feature specification (WHAT + WHY) before implementation — behavior, edge cases, success criteria, non-goals.",
+      "version": "0.1.0",
+      "source": "skills/spec-driven",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["specification", "requirements", "sdd"]
+    }
+  ]
+}

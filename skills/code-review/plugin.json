@@ -1,0 +1,15 @@
+{
+  "name": "code-review",
+  "description": "Systematic 8-category PR review (security → correctness → error handling → types → performance → testing → observability → maintainability).",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": ["code-review", "quality", "security"],
+  "tags": ["code-review", "quality", "security"],
+  "skills": "."
+}

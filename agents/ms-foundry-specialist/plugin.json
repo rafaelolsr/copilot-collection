@@ -1,0 +1,15 @@
+{
+  "name": "ms-foundry-specialist",
+  "description": "Microsoft Foundry specialist — Foundry Agent Service, Foundry IQ knowledge bases, azure-ai-projects / azure-ai-agents SDKs, Microsoft Agent Framework, model deployments, tools, threads, runs, evaluations, and OpenTelemetry tracing.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": ["microsoft-foundry", "azure", "ai-agents", "foundry-iq", "agent-framework", "opentelemetry"],
+  "tags": ["microsoft-foundry", "azure", "ai-agents", "foundry-iq", "agent-framework", "opentelemetry"],
+  "agents": "."
+}

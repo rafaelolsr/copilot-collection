@@ -28,6 +28,7 @@ agents/<name>/
 | [eval-framework-specialist](eval-framework-specialist/) | Eval framework for AI | Deterministic / AI-assisted / agentic metrics, golden datasets, regression tracking |
 | [microsoft-fabric-specialist](microsoft-fabric-specialist/) | Microsoft Fabric | Lakehouse, Warehouse, OneLake, Delta, semantic model REST API, Fabric SQL endpoint |
 | [azure-devops-specialist](azure-devops-specialist/) | Azure DevOps | Pipeline YAML, REST API, branch policies, workload identity federation, PR automation |
+| [accessibility-expert](accessibility-expert/) | Accessibility / WCAG | WCAG 2.1/2.2 audits, keyboard navigation, semantic HTML, ARIA, screen reader compatibility |
 
 ## Format
 
