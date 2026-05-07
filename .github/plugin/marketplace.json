@@ -10,6 +10,15 @@
   },
   "plugins": [
     {
+      "name": "everything",
+      "description": "Bundle install: all 8 agents + 9 skills in a single command. Use this for the full set; use the individual plugins below for selective installs.",
+      "version": "0.2.0",
+      "source": ".",
+      "license": "MIT",
+      "category": "bundles",
+      "tags": ["bundle", "all", "everything"]
+    },
+    {
       "name": "ms-foundry-specialist",
       "description": "Microsoft Foundry specialist — Foundry Agent Service, Foundry IQ, azure-ai-projects SDKs, Microsoft Agent Framework, OpenTelemetry tracing.",
       "version": "0.1.0",

@@ -1,0 +1,25 @@
+{
+  "name": "everything",
+  "description": "Bundle install for the entire copilot-collection — 8 agents + 9 skills in a single plugin. Use this when you want the full set; use the individual plugins for selective installs.",
+  "version": "0.2.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": ["bundle", "all", "everything", "copilot-collection"],
+  "tags": ["bundle", "all", "everything"],
+  "agents": [
+    "agents/accessibility-expert",
+    "agents/azure-devops-specialist",
+    "agents/eval-framework-specialist",
+    "agents/microsoft-fabric-specialist",
+    "agents/ms-foundry-specialist",
+    "agents/observability-specialist",
+    "agents/powerbi-tmdl-specialist",
+    "agents/python-specialist"
+  ],
+  "skills": "skills"
+}
