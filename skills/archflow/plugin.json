@@ -1,0 +1,15 @@
+{
+  "name": "archflow",
+  "description": "Analyzes a codebase and generates animated HTML architecture reports — full report, diagram-only, or scroll-snap slide deck. Real names from your code, bespoke design per project.",
+  "version": "0.4.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": ["architecture", "diagram", "visualization", "animation", "codebase", "html"],
+  "tags": ["architecture", "diagram", "visualization", "animation", "codebase", "html"],
+  "skills": "."
+}

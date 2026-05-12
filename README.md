@@ -6,7 +6,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Copilot%20CLI-compatible-purple.svg" alt="Copilot CLI compatible" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-7-success.svg" alt="7 agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-9-blue.svg" alt="9 skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-10-blue.svg" alt="10 skills" /></a>
   <a href="#"><img src="https://img.shields.io/badge/instructions-9-orange.svg" alt="9 instructions" /></a>
   <a href="#"><img src="https://img.shields.io/badge/KB%20files-105-purple.svg" alt="105 KB files" /></a>
 </p>
@@ -116,6 +116,12 @@ Skills are procedural playbooks invoked via slash commands or auto-routed. They 
 |-------|--------------|
 | [`/kb-revalidate`](skills/kb-revalidate/) | Re-validates KB files older than 90 days against authoritative sources. Includes `find_stale_kb_files.sh`. |
 | [`/agentic-eval`](skills/agentic-eval/) | Designs eval suites: deterministic checks, AI-assisted scorers, agentic metrics, golden datasets. Includes `seed_failure_modes.py`. |
+
+### Visualization
+
+| Skill | What it does |
+|-------|--------------|
+| [`/archflow`](skills/archflow/) | Reads a codebase and generates an animated, self-contained HTML architecture diagram with real component / module / service names. Three modes: full report, diagram-only, or scroll-snap slide deck. |
 
 ---
 

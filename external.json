@@ -106,6 +106,12 @@
       "description": "Designs eval suites for an agent — deterministic checks, AI-assisted scorers, agentic metrics, golden datasets",
       "path": "skills/agentic-eval/SKILL.md",
       "tags": ["llm-evaluation", "testing", "regression"]
+    },
+    {
+      "name": "archflow",
+      "description": "Generates animated HTML architecture reports — full report, diagram-only, or scroll-snap slide deck — with real names from the codebase",
+      "path": "skills/archflow/SKILL.md",
+      "tags": ["architecture", "diagram", "visualization", "animation", "codebase"]
     }
   ],
   "instructions": [

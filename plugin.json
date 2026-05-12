@@ -1,7 +1,7 @@
 {
   "name": "everything",
-  "description": "Bundle install for the entire copilot-collection — 8 agents + 9 skills in a single plugin. Use this when you want the full set; use the individual plugins for selective installs.",
-  "version": "0.2.0",
+  "description": "Bundle install for the entire copilot-collection — 8 agents + 10 skills in a single plugin. Use this when you want the full set; use the individual plugins for selective installs.",
+  "version": "0.3.0",
   "author": {
     "name": "Rafael (RafaelOLSR)",
     "url": "https://github.com/rafaelolsr"
