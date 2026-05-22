@@ -6,8 +6,8 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Copilot%20CLI-compatible-purple.svg" alt="Copilot CLI compatible" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-7-success.svg" alt="7 agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-10-blue.svg" alt="10 skills" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/instructions-9-orange.svg" alt="9 instructions" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-12-blue.svg" alt="12 skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/instructions-10-orange.svg" alt="10 instructions" /></a>
   <a href="#"><img src="https://img.shields.io/badge/KB%20files-105-purple.svg" alt="105 KB files" /></a>
 </p>
 
@@ -121,7 +121,18 @@ Skills are procedural playbooks invoked via slash commands or auto-routed. They 
 
 | Skill | What it does |
 |-------|--------------|
-| [`/archflow`](skills/archflow/) | Reads a codebase and generates an animated, self-contained HTML architecture diagram with real component / module / service names. Three modes: full report, diagram-only, or scroll-snap slide deck. |
+| [`/archflow`](skills/archflow/) | Reads a codebase and generates an animated, self-contained HTML architecture diagram with real component / module / service names. Three modes: full report (default), diagram-only, or scroll-snap slide deck. |
+| [`/archflow-diagram`](skills/archflow-diagram/) | Diagram-only shim over `archflow` — produces a single self-contained animated HTML diagram with zero external dependencies. |
+| [`/archflow-slides`](skills/archflow-slides/) | Slide-deck shim over `archflow` — produces a scroll-snap HTML presentation with the animated diagram as the hero slide plus supporting slides. |
+
+### ✨ Featured skills
+
+If you only try a handful of these, start here:
+
+- **[`/archflow`](skills/archflow/)** — the showpiece. Point it at any repo and it produces a single self-contained HTML file with an animated architecture diagram using the *real* component, module, and service names from your code (not generic shapes). Three flavors out of the box: a full report (default), a diagram-only file with **zero external dependencies** ([`/archflow-diagram`](skills/archflow-diagram/)), or a scroll-snap slide deck for presenting to stakeholders ([`/archflow-slides`](skills/archflow-slides/)). Great for onboarding docs, design reviews, and architecture walkthroughs.
+- **[`/ultrathink`](skills/ultrathink/)** — structured deliberation for hard decisions. Forces 3+ options, a tradeoff matrix, and an explicit "what would change my mind" so the reasoning is auditable, not vibes-based.
+- **[`/code-review`](skills/code-review/)** — an 8-category PR review that catches the same classes of bugs a senior reviewer would, in the same order: security → correctness → error handling → types → performance → testing → observability → maintainability.
+- **[`/simplify`](skills/simplify/)** — refactors *only* recently-changed code to remove duplication, dead code, and premature abstraction. Ships with a duplicate-finder script so it doesn't hallucinate the duplicates.
 
 ---
 
@@ -129,9 +140,10 @@ Skills are procedural playbooks invoked via slash commands or auto-routed. They 
 
 Instructions auto-apply when Copilot edits a file matching the pattern. No explicit invocation needed.
 
-### Markdown & docs
+### Languages
 | Instruction | Applies to |
 |---|---|
+| [`python`](instructions/python.instructions.md) | `**/*.py`, `pyproject.toml`, `uv.lock` — uv over pip, strict typing, async/await, no hardcoded secrets |
 | [`markdown`](instructions/markdown.instructions.md) | `**/*.md` — structure, headings, links, code blocks, accessibility |
 
 ### Copilot artifacts (meta)
@@ -174,6 +186,17 @@ Instructions auto-apply when Copilot edits a file matching the pattern. No expli
 ---
 
 ## Installing GitHub Copilot CLI
+
+> **Quickstart (TL;DR)** — already have Copilot CLI and just want to try one skill?
+> ```bash
+> git clone https://github.com/rafaelolsr/copilot-collection.git
+> mkdir -p ~/.copilot/skills
+> cp -r copilot-collection/skills/archflow ~/.copilot/skills/
+> # then in any repo:
+> copilot
+> # > /archflow
+> ```
+> Detailed setup for Node, Copilot CLI, VS Code, and per-artifact configuration is below.
 
 **1. Install Node.js 22+** (required by Copilot CLI):
 
@@ -250,7 +273,13 @@ VS Code reads agents from `.github/agents/`, skills from `.github/skills/`, inst
 
 ## Installing this collection
 
-Three options, depending on your use case:
+Pick the option that matches how you want to use it:
+
+| Option | Best for | Scope |
+|--------|----------|-------|
+| **1 — Marketplace plugin** | Cherry-picking specific agents | Per-agent |
+| **2 — `gh skill install`** | Cherry-picking specific skills | Per-skill |
+| **3 — Git clone & copy** | Full control, all artifacts, offline | Whole repo |
 
 ### Option 1 — Marketplace plugin (per-agent)
 

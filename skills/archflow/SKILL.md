@@ -40,6 +40,16 @@ The user picks the mode via natural language:
 
 If unclear, default to REPORT MODE.
 
+NOTE — sibling shim skills can force the mode. If this SKILL.md was
+loaded from one of these sibling skills, treat the mode as fixed and
+skip natural-language detection:
+
+  archflow-diagram   → MODE is fixed to DIAGRAM
+  archflow-slides    → MODE is fixed to SLIDES
+
+Direct invocation of `archflow` keeps the natural-language dispatch
+above (defaulting to REPORT).
+
 ===================================================================
 WORKFLOW — 7-STAGE PIPELINE (all modes)
 ===================================================================
