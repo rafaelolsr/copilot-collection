@@ -116,6 +116,7 @@ Skills are procedural playbooks invoked via slash commands or auto-routed. They 
 |-------|--------------|
 | [`/kb-revalidate`](skills/kb-revalidate/) | Re-validates KB files older than 90 days against authoritative sources. Includes `find_stale_kb_files.sh`. |
 | [`/agentic-eval`](skills/agentic-eval/) | Designs eval suites: deterministic checks, AI-assisted scorers, agentic metrics, golden datasets. Includes `seed_failure_modes.py`. |
+| [`/prompt-builder`](skills/prompt-builder/) | Creates and improves prompts, instructions, and agent/skill files via a dual-persona loop (Prompt Builder authors; Prompt Tester validates by literal execution). Researches authoritative sources and integrates findings. |
 
 ### Visualization
 
