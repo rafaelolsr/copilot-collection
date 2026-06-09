@@ -10,7 +10,8 @@ description: |
 
   Use when the user says: "create a prompt for X", "improve this prompt",
   "build a chatmode/agent/skill prompt", "update this prompt to current
-  best practices", "test this prompt", "make these instructions clearer".
+  best practices", "test this prompt", "validate this prompt", "audit these
+  instructions", "is this prompt any good?", "make these instructions clearer".
 
   Do NOT use for: writing application or business code (use a language
   skill), full PR code review (use code-review), architecture decisions
@@ -101,6 +102,51 @@ You WILL use the same capability name consistently throughout a prompt — do
 NOT mix host-specific tool IDs that may not resolve in the target environment.
 
 ## Workflow
+
+You WILL pick one of two paths:
+
+- **Validate-only** — assess an existing prompt without changing it. Use this
+  for "validate this prompt", "audit these instructions", "is this prompt any
+  good?", or any request that asks for an assessment rather than an edit.
+- **Author/improve** — create a new prompt or change an existing one. This
+  runs the full Research → Test → Improve → Validate → Confirm cycle below.
+
+### Validate-only path
+
+You WILL assess the prompt without editing it:
+
+1. Read the target prompt in full.
+2. Activate Prompt Tester: execute the instructions literally against one or
+   more realistic scenarios, documenting every step and the complete output
+   the prompt would produce.
+3. Score the prompt against the **Success criteria** in Validate (below):
+   ambiguity, consistency, standards compliance, clear success path.
+4. Emit a findings report (see the **Validation report** template) listing
+   each issue with severity and the exact location in the prompt.
+5. You WILL NEVER edit the prompt in this path. Stop after the report. If the
+   user then asks for fixes, switch to the Author/improve path.
+
+#### Validation report
+
+```text
+PROMPT VALIDATION: [prompt-name]
+================================
+verdict:        pass | needs-work | redesign
+scenarios_run:  [n]
+
+findings:
+  - [CRITICAL|WARN|INFO] [location] — [issue] → [suggested fix]
+  - ...
+
+strengths:
+  - [what works well]
+
+success_criteria:
+  - no_ambiguity:        pass | fail
+  - consistent_output:   pass | fail
+  - standards_compliant: pass | fail
+  - clear_success_path:  pass | fail
+```
 
 ### 1. Research and analyze
 
