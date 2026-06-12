@@ -1,0 +1,73 @@
+# 🔍 Search & Research
+
+Tools focused on finding high-quality, relevant information.
+
+- **Exa MCP** → Semantic web search (great for deep research and non-obvious sources)
+- **Tavily MCP** → Fast, real-time search + summarized answers (more “Google-like” but AI-optimized)
+- **Context7 MCP** → Structured docs + version-aware references (best for dev documentation)
+- **Ref MCP** → Internal knowledge retrieval (think company docs, specs, private data)
+
+👉 **Typical combo:**  
+Exa + Tavily + Context7 = very strong “AI researcher” stack
+
+---
+
+# 🌐 Web Scraping & Data Extraction
+
+Tools that pull structured data from websites.
+
+- **Firecrawl MCP** → Clean scraping + multi-page crawling
+- **Chrome DevTools MCP** → Live browser inspection + manual/interactive scraping
+
+👉 **Difference:**
+
+- Firecrawl = automated pipelines
+- Chrome DevTools = debugging + dynamic/manual extraction
+
+👉 **Typical combo:**  
+Firecrawl + Chrome DevTools = robust scraping + debugging setup
+
+---
+
+# 🤖 Browser Automation & Testing
+
+Tools that simulate real user behavior.
+
+- **Playwright MCP** → Full browser automation (tests, flows, scraping with interaction)
+
+👉 **Typical combo:**  
+Playwright + Firecrawl = scraping + interaction (login, clicks, pagination)
+
+---
+
+# 💻 Development & Code Management
+
+Tools that interact with codebases and engineering workflows.
+
+- **GitHub MCP** → Repo access, PRs, issues on GitHub
+- **Linear MCP** → Issue tracking + project management via Linear
+
+👉 **Typical combo:**  
+GitHub + Linear = full engineering loop (code + tasks)
+
+---
+
+# 🧠 Knowledge Management & Notes
+
+Tools for organizing and retrieving structured knowledge.
+
+- **Obsidian MCP** → Works with Obsidian vaults for personal/team knowledge bases
+- **Ref MCP** (also fits here) → Internal documentation retrieval
+
+👉 **Typical combo:**  
+Obsidian + Ref = “second brain” for agents
+
+---
+
+# 🎨 UI / App Generation
+
+Tools that help build interfaces or generate code visually.
+
+- **Magic MCP** → AI-driven UI/component/code generation (design → code workflows)
+
+👉 Often paired with GitHub for shipping generated code.
