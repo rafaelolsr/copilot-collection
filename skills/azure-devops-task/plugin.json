@@ -1,0 +1,15 @@
+{
+  "name": "azure-devops-task",
+  "description": "Creates Azure DevOps Task work items from requests or plans using Azure Boards best practices.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": ["azure-devops", "azure-boards", "tasks", "work-items"],
+  "tags": ["azure-devops", "azure-boards", "tasks", "work-items"],
+  "skills": "."
+}

@@ -1,0 +1,15 @@
+{
+  "name": "grill-me",
+  "description": "Relentless, structured requirements interrogation. Stress-tests a plan or feature design through one-question-at-a-time questioning across problem, users, scope, data, actions, edge cases, constraints and success criteria, then emits a locked-in Grill Summary before any code is written.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": ["grill-me", "requirements", "design", "interrogation", "planning", "stress-test", "discovery"],
+  "tags": ["grill-me", "requirements", "planning", "design", "discovery"],
+  "skills": "."
+}
