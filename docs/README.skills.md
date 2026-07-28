@@ -66,6 +66,8 @@ The body is markdown. Effective skills have:
 | `code-review` | Systematic 8-category review of a diff / PR |
 | `kb-revalidate` | Re-validate KB content against authoritative sources (90-day cycle) |
 | `agentic-eval` | Add evaluation suite to an existing agent / pipeline |
+| `azure-devops-task` | Create Azure DevOps Task work items from requests or plans |
+| `doctor` | Health check for the local Copilot CLI install (Copilot's `/doctor`); pass/warn/fail with copy-paste fixes |
 
 Each has its own SKILL.md with full documentation.
 

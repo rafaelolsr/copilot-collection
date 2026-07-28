@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "everything",
-      "description": "Bundle install: all 8 agents + 9 skills in a single command. Use this for the full set; use the individual plugins below for selective installs.",
+      "description": "Bundle install: all 8 agents + 14 skills in a single command. Use this for the full set; use the individual plugins below for selective installs.",
       "version": "0.2.0",
       "source": ".",
       "license": "MIT",
@@ -170,6 +170,24 @@
       "license": "MIT",
       "category": "skills",
       "tags": ["specification", "requirements", "sdd"]
+    },
+    {
+      "name": "azure-devops-task",
+      "description": "Creates Azure DevOps Task work items from requests or plans using Azure Boards best practices.",
+      "version": "0.1.0",
+      "source": "skills/azure-devops-task",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["azure-devops", "azure-boards", "tasks", "work-items"]
+    },
+    {
+      "name": "doctor",
+      "description": "Health check for the local Copilot CLI install (the Copilot answer to Claude Code's /doctor): version & updates, install location, auth, config/MCP/permissions validity, loaded skills & agents, instruction resolution, and ~/.copilot disk hygiene — with copy-paste fixes.",
+      "version": "0.1.0",
+      "source": "skills/doctor",
+      "license": "MIT",
+      "category": "skills",
+      "tags": ["doctor", "diagnostics", "health-check", "troubleshooting", "maintenance"]
     }
   ]
 }

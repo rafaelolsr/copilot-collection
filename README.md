@@ -6,7 +6,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Copilot%20CLI-compatible-purple.svg" alt="Copilot CLI compatible" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-7-success.svg" alt="7 agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-12-blue.svg" alt="12 skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-17-blue.svg" alt="17 skills" /></a>
   <a href="#"><img src="https://img.shields.io/badge/instructions-10-orange.svg" alt="10 instructions" /></a>
   <a href="#"><img src="https://img.shields.io/badge/KB%20files-105-purple.svg" alt="105 KB files" /></a>
 </p>
@@ -57,7 +57,7 @@ copilot-collection/
 │   └── <name>/
 │       ├── <name>.agent.md   The agent definition (frontmatter + body)
 │       └── references/        The agent's knowledge base
-├── skills/                 9 procedural playbooks (slash commands)
+├── skills/                 13 procedural playbooks (slash commands)
 ├── instructions/           9 coding standards auto-applied by file pattern
 ├── hooks/                  2 hooks on session events (KB staleness, secrets scanner)
 ├── workflows/              Agentic GitHub Actions
@@ -101,6 +101,16 @@ Skills are procedural playbooks invoked via slash commands or auto-routed. They 
 | [`/ultrathink`](skills/ultrathink/) | Structured deliberation for hard decisions: restate → 3+ options → tradeoff matrices → recommend → "what would change my mind". 10 reusable decision frameworks. |
 | [`/code-review`](skills/code-review/) | Systematic 8-category PR review: security → correctness → error handling → types → performance → testing → observability → maintainability. |
 | [`/explore`](skills/explore/) | Read-only codebase exploration: stack identification, directory map, entry points, conventions, health signals. For onboarding to unfamiliar repos. |
+| [`/azure-devops-task`](skills/azure-devops-task/) | Creates Azure DevOps Task work items from a request or plan, requiring a parent PBI/User Story/Bug and using Azure Boards best practices. |
+| [`/pr-validation-gate`](skills/pr-validation-gate/) | Risk-based PR review before merge: reads metadata, diff, checks, linked work items, and validation evidence; optionally posts comments, approves, or requests changes. |
+| [`/fabric-governance-validate`](skills/fabric-governance-validate/) | Validates a Microsoft Fabric workspace's governance posture against a Microsoft Learn–grounded rubric, scoring live evidence (roles, sensitivity labels, capacity, Git, deployment pipeline, semantic-model refresh health) into a cited report. |
+| [`/powerbi-reverse-engineer`](skills/powerbi-reverse-engineer/) | Reverse-engineers Power BI models (Import + DirectQuery) read-only via the powerbi-modeling-mcp: harvests M/SQL, measures, relationships and data access into a query registry, designs a Fabric one-big-table, and emits a Markdown data-access & Lakehouse ingestion guide plus an archflow report. Includes TMDL parsers and a before/after read-only hash proof. |
+
+### Maintenance & diagnostics
+
+| Skill | What it does |
+|-------|--------------|
+| [`/doctor`](skills/doctor/) | Health check for the local Copilot CLI install (the Copilot answer to Claude Code's `/doctor`): pass/warn/fail across version & updates, install location, auth, config/MCP/permissions JSON validity, loaded skills & agents, instruction resolution, and `~/.copilot` disk hygiene — with copy-paste fixes. Read-only by default; `apply_fixes=true` runs the safe ones. |
 
 ### Documentation & decision-making
 
@@ -125,6 +135,7 @@ Skills are procedural playbooks invoked via slash commands or auto-routed. They 
 | [`/archflow`](skills/archflow/) | Reads a codebase and generates an animated, self-contained HTML architecture diagram with real component / module / service names. Three modes: full report (default), diagram-only, or scroll-snap slide deck. |
 | [`/archflow-diagram`](skills/archflow-diagram/) | Diagram-only shim over `archflow` — produces a single self-contained animated HTML diagram with zero external dependencies. |
 | [`/archflow-slides`](skills/archflow-slides/) | Slide-deck shim over `archflow` — produces a scroll-snap HTML presentation with the animated diagram as the hero slide plus supporting slides. |
+| [`/metadata-lineage-map`](skills/metadata-lineage-map/) | Traces table lineage in the SCHIE365 StarBase metadata repository, building a metadata graph from StarBase records and emitting a table-by-table lineage summary and Archflow-style report. |
 
 ### ✨ Featured skills
 

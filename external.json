@@ -112,6 +112,12 @@
       "description": "Generates animated HTML architecture reports — full report, diagram-only, or scroll-snap slide deck — with real names from the codebase",
       "path": "skills/archflow/SKILL.md",
       "tags": ["architecture", "diagram", "visualization", "animation", "codebase"]
+    },
+    {
+      "name": "azure-devops-task",
+      "description": "Creates Azure DevOps Task work items from requests or plans using Azure Boards best practices",
+      "path": "skills/azure-devops-task/SKILL.md",
+      "tags": ["azure-devops", "azure-boards", "tasks", "work-items"]
     }
   ],
   "instructions": [
