@@ -1,0 +1,15 @@
+{
+  "name": "fabric-governance-validate",
+  "description": "Validates Microsoft Fabric workspace governance: hybrid rubric (Microsoft Learn MCP) plus live evidence (roles, object ownership, sensitivity labels, capacity, Git, deployment pipeline, semantic-model refresh health).",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rafael (RafaelOLSR)",
+    "url": "https://github.com/rafaelolsr"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/rafaelolsr/copilot-collection",
+  "repository": "https://github.com/rafaelolsr/copilot-collection",
+  "keywords": ["microsoft-fabric", "governance", "power-bi", "compliance"],
+  "tags": ["microsoft-fabric", "governance", "power-bi", "compliance"],
+  "skills": "."
+}
