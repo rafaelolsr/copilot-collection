@@ -132,16 +132,17 @@ Skills are procedural playbooks invoked via slash commands or auto-routed. They 
 
 | Skill | What it does |
 |-------|--------------|
-| [`/archflow`](skills/archflow/) | Reads a codebase and generates an animated, self-contained HTML architecture diagram with real component / module / service names. Three modes: full report (default), diagram-only, or scroll-snap slide deck. |
+| [`/archflow`](skills/archflow/) | Reads a codebase and generates an animated, self-contained HTML architecture diagram with real component / module / service names. Four modes: full report (default), diagram-only, scroll-snap slide deck, or rule-by-rule walkthrough. |
 | [`/archflow-diagram`](skills/archflow-diagram/) | Diagram-only shim over `archflow` — produces a single self-contained animated HTML diagram with zero external dependencies. |
 | [`/archflow-slides`](skills/archflow-slides/) | Slide-deck shim over `archflow` — produces a scroll-snap HTML presentation with the animated diagram as the hero slide plus supporting slides. |
+| [`/archflow-walkthrough`](skills/archflow-walkthrough/) | Walkthrough shim over `archflow` — narrates one data flow rule-by-rule: ingestion plus per-stage transformation rules, with a sample record that morphs stage-by-stage. Built for ETL / medallion pipelines. |
 | [`/metadata-lineage-map`](skills/metadata-lineage-map/) | Traces table lineage in the SCHIE365 StarBase metadata repository, building a metadata graph from StarBase records and emitting a table-by-table lineage summary and Archflow-style report. |
 
 ### ✨ Featured skills
 
 If you only try a handful of these, start here:
 
-- **[`/archflow`](skills/archflow/)** — the showpiece. Point it at any repo and it produces a single self-contained HTML file with an animated architecture diagram using the *real* component, module, and service names from your code (not generic shapes). Three flavors out of the box: a full report (default), a diagram-only file with **zero external dependencies** ([`/archflow-diagram`](skills/archflow-diagram/)), or a scroll-snap slide deck for presenting to stakeholders ([`/archflow-slides`](skills/archflow-slides/)). Great for onboarding docs, design reviews, and architecture walkthroughs.
+- **[`/archflow`](skills/archflow/)** — the showpiece. Point it at any repo and it produces a single self-contained HTML file with an animated architecture diagram using the *real* component, module, and service names from your code (not generic shapes). Four flavors out of the box: a full report (default), a diagram-only file with **zero external dependencies** ([`/archflow-diagram`](skills/archflow-diagram/)), a scroll-snap slide deck for presenting to stakeholders ([`/archflow-slides`](skills/archflow-slides/)), or a rule-by-rule data-flow walkthrough that shows how a record transforms stage-by-stage ([`/archflow-walkthrough`](skills/archflow-walkthrough/)) — ideal for ETL / medallion pipelines. Great for onboarding docs, design reviews, and architecture walkthroughs.
 - **[`/ultrathink`](skills/ultrathink/)** — structured deliberation for hard decisions. Forces 3+ options, a tradeoff matrix, and an explicit "what would change my mind" so the reasoning is auditable, not vibes-based.
 - **[`/code-review`](skills/code-review/)** — an 8-category PR review that catches the same classes of bugs a senior reviewer would, in the same order: security → correctness → error handling → types → performance → testing → observability → maintainability.
 - **[`/simplify`](skills/simplify/)** — refactors *only* recently-changed code to remove duplication, dead code, and premature abstraction. Ships with a duplicate-finder script so it doesn't hallucinate the duplicates.

@@ -235,6 +235,20 @@ with a brief note.
   Theme toggle     CSS custom properties used (not hardcoded colors)  WARNING
   Accessibility    prefers-reduced-motion rule present                WARNING
 
+  WALKTHROUGH MODE ONLY (skip for other modes):
+  Stage coverage   Every pipeline stage present as a group            CRITICAL
+  Transition cover Every stage-to-stage transition present on spine   CRITICAL
+  Rule completeness Every extracted rule rendered as a chip           ERROR
+  Rule code refs   Every rule chip resolves to a code_ref             ERROR
+  Stoplight status Every chip carries green/yellow/red (or gap)       ERROR
+  Record morph     Shows a real changed field (before→after), not
+                   a placeholder; unchanged fields dimmed             ERROR
+  Ingestion named  Landing mechanism stated at pipeline head          ERROR
+  Dual driver      Both autoplay AND scroll (IntersectionObserver)
+                   write one shared active index                      ERROR
+  Silver detail    Silver transition shows its rules in full, not
+                   summarized to "cleansing"                          ERROR
+
   How to verify each check:
 
     Typography     Count distinct font-family declarations. Must be ≥2
@@ -298,6 +312,50 @@ with a brief note.
 
     Accessibility  Search for @media (prefers-reduced-motion: reduce).
                    Must be present with animation/transition overrides.
+
+    WALKTHROUGH checks (run only for walkthrough output mode):
+
+    Stage coverage   Count stage <g> groups in the SVG. Every stage in
+                     the pipeline (source/ingest, bronze, silver, gold,
+                     output as applicable) must be present. A missing
+                     stage is CRITICAL — the flow is incomplete.
+
+    Transition cover Count the transition steps (the scroll sentinels /
+                     rule-chip blocks). One per gap between consecutive
+                     stages, forming an unbroken spine from ingest to
+                     output. A skipped transition is CRITICAL.
+
+    Rule completeness Cross-check chips against the rule inventory from
+                     analysis STEP 3c. Every extracted rule must appear
+                     as a chip. If chips are capped for space, a visible
+                     "+N more" must be present — no silent truncation.
+
+    Rule code refs   Each chip's engineer card must contain a code_ref
+                     (file:symbol) or "user-supplied". A chip with no
+                     reference and no GAP marking is an ERROR.
+
+    Stoplight status Every chip has a status class (ok/coerce/reject) or
+                     is explicitly a gap chip. A statusless chip is ERROR.
+
+    Record morph     The active transition shows a before and after
+                     record with at least one field visibly changed and
+                     tied to a rule; unchanged fields dimmed. A morph
+                     with no real diff (placeholder values) is ERROR.
+
+    Ingestion named  The pipeline head states a concrete mechanism
+                     (SFTP/CDC/Kafka/API/file-watch), not just "Source".
+
+    Dual driver      Search for BOTH an autoplay timer (setInterval /
+                     phase engine) AND an IntersectionObserver that call
+                     the SAME active-index setter. Two independent state
+                     sources, or scroll-only / autoplay-only, is ERROR
+                     (autoplay-only is acceptable ONLY with the documented
+                     clickable-tab fallback — see walkthrough.md).
+
+    Silver detail    The silver transition must render multiple concrete
+                     rules. A silver step that only says "cleansing" or
+                     shows one vague chip is ERROR — silver detail is the
+                     entire point of the mode.
 
   VERDICT RULES:
     PASS              → 0 CRITICAL, 0 ERROR
