@@ -31,12 +31,15 @@ OUTPUT MODES
   Full report (default)  → ./architecture-report.html
   Diagram-only           → ./architecture-diagram.html
   Slide deck             → ./architecture-slides.html
+  Walkthrough            → ./architecture-walkthrough.html
 
 The user picks the mode via natural language:
 
   "generate an architecture report" / "full report"   → REPORT MODE
   "just the diagram" / "animated diagram only"        → DIAGRAM MODE
   "slide deck" / "presentation" / "slides"            → SLIDE MODE
+  "walk me through the data flow" / "step by step" /
+   "rule by rule" / "explain how the data transforms" → WALKTHROUGH MODE
 
 If unclear, default to REPORT MODE.
 
@@ -44,8 +47,9 @@ NOTE — sibling shim skills can force the mode. If this SKILL.md was
 loaded from one of these sibling skills, treat the mode as fixed and
 skip natural-language detection:
 
-  archflow-diagram   → MODE is fixed to DIAGRAM
-  archflow-slides    → MODE is fixed to SLIDES
+  archflow-diagram      → MODE is fixed to DIAGRAM
+  archflow-slides       → MODE is fixed to SLIDES
+  archflow-walkthrough  → MODE is fixed to WALKTHROUGH
 
 Direct invocation of `archflow` keeps the natural-language dispatch
 above (defaulting to REPORT).
@@ -66,6 +70,12 @@ STAGE 1: ANALYZE
 
   Extract: components, groups, flows, external services.
 
+  WALKTHROUGH MODE: ALSO run analysis.md STEP 3c — extract the
+  transformation RULES per stage (type, stoplight status, before/
+  after field, code_ref), the ingestion MECHANISM, and a SAMPLE
+  RECORD to morph through the pipeline. Code-first; note any rules
+  that can't be derived from code as GAPS for the PLAN checkpoint.
+
   After completion, print:
     ANALYZE   ✓  {N} files scanned, {M} components, {K} external services
 
@@ -78,6 +88,8 @@ STAGE 2: PLAN
   Read references/design-qa.md     → quality gates
   Read references/animation.md     → phase engine for the diagram
   Read references/navigation.md    → TOC sidebar (if needed)
+  Read references/walkthrough.md   → (walkthrough mode) rule-annotated
+                                     transition primitive + scroll driver
 
   Produce a visible, structured architecture map BEFORE any HTML.
 
@@ -104,6 +116,18 @@ STAGE 2: PLAN
 
     SLIDE MODE — plan content → slide type mapping and chunk boundaries
       (5-7 slides per chunk for chunked generation in BUILD).
+
+    WALKTHROUGH MODE — plan the spine as the RECORD'S JOURNEY, not the
+      subsystems. List the transitions (ingest → bronze → silver → gold
+      → output), and for each the rules that fire. The silver transition
+      is the HERO — plan its full rule set, never "cleansing happens here."
+
+      GAP CHECKPOINT (walkthrough only): if analysis STEP 3c produced a
+      GAPS block — underivable silver rules, opaque intent, or an
+      unfillable sample record — present it to the user and PAUSE here.
+      Do not write HTML until the user confirms or fills the gaps.
+      Rules that remain unknown become GAP chips (never dropped). This
+      is the ONE mode that stops for input mid-pipeline.
 
   Output the architecture map to the user:
 
@@ -168,6 +192,22 @@ STAGE 3: BUILD
        - Slide count matching navigation dots
        - Consistent styling across all sections
 
+  WALKTHROUGH MODE (per references/walkthrough.md):
+    → Build the pinned SVG pipeline (stage groups + arrows) as the hero.
+    → For EACH transition, build a rule-annotated transition: record
+      morph (field-level before→after diff, changed fields highlighted,
+      unchanged dimmed) + stoplight rule chips + collapsed engineer
+      cards (code_ref required on each).
+    → Wire ONE active-index state driven by BOTH autoplay (phase engine)
+      AND scroll (sticky-pinned hero + IntersectionObserver sentinels).
+      User scroll yields autoplay; ↑/↓ keys step; reduced-motion disables
+      autoplay + morph animation but keeps scroll stepping.
+    → COMPLETENESS: every stage, every transition, every extracted rule
+      rendered. Silver rules shown in full. Ingestion mechanism named.
+      Unknown rules render as GAP chips — never silently dropped.
+    → Reference example: assets/templates/walkthrough-pipeline.html (a
+      pattern to adapt, not copy verbatim).
+
   After completion, print:
     BUILD     ✓  {output-mode} generated ({lines} lines, {M} chunks)
 
@@ -176,9 +216,10 @@ STAGE 4: DELIVER
 -------------------------------------------------------------------
 
   Write the output file:
-    REPORT MODE:   ./architecture-report.html
-    DIAGRAM MODE:  ./architecture-diagram.html
-    SLIDE MODE:    ./architecture-slides.html
+    REPORT MODE:      ./architecture-report.html
+    DIAGRAM MODE:     ./architecture-diagram.html
+    SLIDE MODE:       ./architecture-slides.html
+    WALKTHROUGH MODE: ./architecture-walkthrough.html
 
   Single self-contained HTML file. Tell the user the path so they can
   open it in a browser.
@@ -362,6 +403,17 @@ OUTPUT RULES
   SLIDE MODE:
     → File: ./architecture-slides.html
     → External deps: Google Fonts CDN
+
+  WALKTHROUGH MODE:
+    → File: ./architecture-walkthrough.html
+    → External deps: Google Fonts CDN
+    → One flow, narrated end to end: ingestion mechanism named, every
+      stage transition shown, every transformation rule rendered as a
+      stoplight chip with a code reference. Silver rules shown in full.
+    → Sample record morphs stage-by-stage (field-level before→after).
+    → Driven by BOTH autoplay and scroll (sticky-pinned hero); ↑/↓ keys;
+      prefers-reduced-motion supported.
+    → Do NOT alter architecture/diagram mode — walkthrough is additive.
 
 ===================================================================
 ANALYSIS DEPTH
